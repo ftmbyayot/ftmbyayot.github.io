@@ -57,6 +57,8 @@
     padding-block: 0 48px;
   }
   .wrap { max-width: 600px; margin-inline: auto; display: flex; flex-direction: column; gap: 28px; }
+  .wrap.wide { max-width: 980px; }
+  .wrap.wide .search, .wrap.wide .lead { max-width: 600px; }
   a { color: var(--accent); }
 
   .back {
@@ -196,18 +198,79 @@
   .group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
   .group-head h3 { font-family: var(--font-display); font-weight: 600; font-size: 20px; margin: 0; }
   .group-head span { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .live-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  /* Page utama: statistik, cip fasa, kad "mula di sini", kumpulan fasa, kad set */
+  .stats { margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
+  .stats b { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--ink); font-variant-numeric: tabular-nums; margin-right: 2px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: -10px; }
+  .chip {
+    font: inherit; font-size: 13.5px; font-weight: 600; color: var(--ink);
+    padding: 7px 13px; min-height: 36px; border-radius: 99px; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--line);
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background-color .15s ease, border-color .15s ease;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip .c { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .chip[aria-pressed="true"] .c { color: inherit; opacity: .7; }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .results { display: flex; flex-direction: column; gap: 32px; }
+
+  .feature {
+    display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 14px 16px; align-items: center;
+    padding: 20px; border-radius: 22px; text-decoration: none; color: var(--ink);
+    background: var(--accent-soft); border: 1.5px solid transparent;
+    transition: border-color .15s ease;
+  }
+  .feature:hover { border-color: var(--accent); }
+  .feature:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .f-icon { width: 60px; height: 60px; border-radius: 18px; background: var(--surface); color: var(--accent); display: grid; place-items: center; }
+  .f-icon svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .f-body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .f-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+  .f-body strong { font-family: var(--font-display); font-weight: 600; font-size: 23px; line-height: 1.15; text-wrap: balance; }
+  .f-text { font-size: 14px; color: var(--muted); }
+  .f-cta {
+    grid-column: 1 / -1; justify-self: start;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 16px; border-radius: 99px; background: var(--accent); color: var(--accent-ink);
+    font-weight: 700; font-size: 14px;
+  }
+  .f-cta svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .phase { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+  .phase-head { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; }
+  .p-icon { grid-row: span 2; width: 40px; height: 40px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); color: var(--accent); display: grid; place-items: center; }
+  .p-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .phase-head h3 { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.2; margin: 0; min-width: 0; }
+  .phase-head .count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .phase-head p { grid-column: 2 / -1; margin: 0; font-size: 13.5px; color: var(--muted); }
+
+  .set-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
   .set-card {
-    display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--ink);
-    padding: 16px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line);
+    display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 0 12px; align-items: start;
+    padding: 16px; border-radius: 18px; text-decoration: none; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line);
     transition: border-color .15s ease, transform .15s ease;
   }
-  .set-card:hover { border-color: var(--accent); }
-  .set-card:active { transform: scale(.99); }
+  a.set-card:hover { border-color: var(--accent); }
+  a.set-card:active { transform: scale(.99); }
   .set-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .set-no { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
-  .set-card strong { font-family: var(--font-display); font-weight: 600; font-size: 19px; line-height: 1.2; }
-  .set-card .meta { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+  .set-card.done { border-color: var(--ok); }
+  .set-card.soon { opacity: .7; }
+  .sc-icon { width: 44px; height: 44px; border-radius: 13px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+  .set-card.done .sc-icon { background: var(--ok-soft); color: var(--ok); }
+  .sc-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .sc-body { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .set-no { font-size: 11.5px; font-weight: 700; color: var(--accent); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+  .set-card strong { font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 1.2; }
+  .sc-items { font-size: 13px; line-height: 1.45; color: var(--muted); }
+  .sc-meta { margin-top: 4px; display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .sc-meta .mine { color: var(--ok); font-weight: 700; }
+  .sc-bar { height: 4px; border-radius: 99px; background: var(--line); overflow: hidden; margin-top: 2px; }
+  .sc-bar i { display: block; height: 100%; background: var(--ok); border-radius: inherit; }
   .soon-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
   .soon-list li {
     display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 10px; align-items: baseline;
@@ -248,11 +311,12 @@
   - "icon" = baju | bedung | lampin | tisu | krim | sarung | termometer | botol | beg | pam | mandi | mangkuk | bulan | firstaid | hadiah | stroller | sabun | gunting | bajuibu | rak | kamera | air | gigi | kotak
   - "warn" / "note" pada set = amaran / nota di bawah tajuk set.
   - "checked" = tarikh link terakhir disemak (YYYY-MM-DD).
+  - "fasa" = kumpulan di page utama: bersalin | pantang | menyusu | makan | harian | tidur | keluar | kerja | hadiah. Set tanpa fasa masuk "Lain-lain".
 -->
 <script type="application/json" id="set-data">
 {
   "sets": [
-    {"no": 1, "slug": "newborn-starter-kit", "title": "Newborn Starter Kit", "intro": "7 barang asas yang baby perlukan dari hari pertama di rumah. Tak perlu beli semua sekali gus. Tanda yang dah ada, dan beli yang belum.", "checked": "2026-10-09", "items": [
+    {"no": 1, "slug": "newborn-starter-kit", "title": "Newborn Starter Kit", "intro": "7 barang asas yang baby perlukan dari hari pertama di rumah. Tak perlu beli semua sekali gus. Tanda yang dah ada, dan beli yang belum.", "checked": "2026-10-09", "fasa": "harian", "items": [
       {"id": "baju", "icon": "baju", "name": "Baju baby (rompers / bodysuit)", "qty": "6–8 helai", "why": "Baby boleh tukar baju 2–3 kali sehari sebab terkena kencing atau muntah susu. Pilih kain cotton supaya tak panas.", "tip": "Beli saiz 0–3 bulan. Baby cepat besar, jadi jangan borong saiz NB.", "link": "https://s.shopee.com.my/4VdQAWyuAI", "product": "CantikBaby Romper Bayi Butang Lengan Pendek (cotton)"},
       {"id": "bedung", "icon": "bedung", "name": "Kain bedung muslin", "qty": "3–4 helai", "why": "Satu kain, banyak guna: bedung, selimut nipis, alas tukar lampin dan penutup masa menyusu.", "tip": "Bedung ketat di bahagian dada dan longgar di pinggul. Berhenti membedung bila baby mula cuba berguling.", "link": "https://s.shopee.com.my/4LJzyDzXVH", "product": "Hahpee 110x110cm Muslin Swaddle"},
       {"id": "lampin", "icon": "lampin", "name": "Lampin pakai buang saiz NB", "qty": "1–2 pek dulu", "why": "Newborn boleh guna sampai 8–10 lampin sehari, jadi ini barang yang paling cepat habis.", "tip": "Jangan stok banyak dulu. Setiap baby sesuai dengan jenama berbeza, dan saiz NB cepat tak muat.", "link": "https://s.shopee.com.my/60SDxHtC7c", "product": "Drypers Wee Wee Dry Newborn 60"},
@@ -261,7 +325,7 @@
       {"id": "sarung", "icon": "sarung", "name": "Sarung tangan & sarung kaki", "qty": "3–4 pasang", "why": "Kuku newborn nipis dan tajam, jadi baby mudah tercakar muka sendiri. Sarung kaki jaga kaki baby hangat dalam bilik aircond.", "tip": "Pilih yang bergetah lembut supaya tak ketat di pergelangan. Bila baby mula hisap tangan, kurangkan pemakaian sarung tangan.", "link": "https://s.shopee.com.my/3qNjNMansM", "product": "DESINCE Newborn Mitten & Booties"},
       {"id": "termometer", "icon": "termometer", "name": "Termometer digital", "qty": "1 unit", "why": "Untuk periksa suhu bila badan baby rasa panas. Lebih tepat daripada rasa dengan tangan.", "warn": "Baby bawah 3 bulan dengan suhu 38°C ke atas perlu terus dibawa jumpa doktor.", "tip": "Untuk newborn, ambil suhu di ketiak. Catat bacaan dan masa supaya senang bagitahu doktor.", "link": "https://s.shopee.com.my/3g4JB3bRDL", "product": "Digital Thermometer Soft Flexible Tip"}
     ]},
-    {"no": 2, "slug": "hospital-bag", "title": "Hospital Bag Essentials Set", "intro": "Beg hospital untuk ibu dan baby. Siapkan sebelum 36 minggu, dan jangan lupa IC serta buku rekod antenatal (buku pink).", "items": [
+    {"no": 2, "slug": "hospital-bag", "title": "Hospital Bag Essentials Set", "intro": "Beg hospital untuk ibu dan baby. Siapkan sebelum 36 minggu, dan jangan lupa IC serta buku rekod antenatal (buku pink).", "fasa": "bersalin", "items": [
       {"id": "beg", "icon": "beg", "name": "Beg hospital besar / beg beroda", "qty": "1", "why": "Muat barang ibu dan baby untuk 2–3 hari di wad.", "tip": "Asingkan barang baby dalam pouch kecil supaya senang dicapai.", "link": "", "cari": "beg hospital bersalin"},
       {"id": "pad", "icon": "kotak", "name": "Pad bersalin (maternity pad)", "qty": "1–2 pek", "why": "Darah nifas paling banyak pada hari-hari awal. Pad bersalin lebih panjang dan lebih menyerap daripada pad biasa.", "link": "", "product": "Intimate Maternity Loop 230mm Pad Bersalin", "tip": "Bawa sekurang-kurangnya 10–12 keping untuk 2 hari di wad.", "cari": "pad bersalin maternity pad"},
       {"id": "seluar", "icon": "kotak", "name": "Seluar dalam pakai buang", "qty": "1 pek", "why": "Tak perlu basuh masa di wad. Pilih saiz lebih besar sikit untuk keselesaan.", "link": "https://s.shopee.com.my/AUudLJXd9o", "product": "Disposable Panties Maternity Seluar Dalam Pantang", "tip": "Bawa 5–6 helai. Lepas pakai terus buang, tak perlu bawa balik kain kotor."},
@@ -269,7 +333,7 @@
       {"id": "bajubaby", "icon": "baju", "name": "Set baju, bedung dan topi baby", "qty": "2 set", "why": "Untuk dipakai baby masa di wad dan masa balik rumah.", "link": "https://s.shopee.com.my/5LCXD8zHlu", "product": "Newborn Baby Clothes Set 5 Pcs 0-6M", "tip": "Basuh dulu, kemudian simpan setiap set dalam plastik zip supaya senang dicapai."},
       {"id": "toiletries", "icon": "sabun", "name": "Set toiletries saiz travel", "qty": "1 set", "why": "Berus gigi, sabun dan syampu kecil untuk mandi pertama selepas bersalin.", "link": "", "tip": "Masukkan sekali sikat, pengikat rambut dan lip balm. Bibir cepat kering dalam wad aircond.", "cari": "travel toiletries set"}
     ]},
-    {"no": 3, "slug": "maternity-delivery-prep", "title": "Maternity & Delivery Prep Kit", "intro": "Barang untuk minggu-minggu akhir mengandung dan hari bersalin.", "checked": "2026-10-09", "items": [
+    {"no": 3, "slug": "maternity-delivery-prep", "title": "Maternity & Delivery Prep Kit", "intro": "Barang untuk minggu-minggu akhir mengandung dan hari bersalin.", "checked": "2026-10-09", "fasa": "bersalin", "items": [
       {"id": "bantal", "icon": "bulan", "name": "Bantal mengandung bentuk U", "qty": "1", "why": "Sokong perut dan belakang supaya lebih selesa tidur mengiring pada trimester ketiga.", "link": "https://s.shopee.com.my/8fSzA3FmdU", "product": "Extra Large U Shape Pregnant Pillow", "tip": "Letak di antara lutut masa tidur mengiring ke kiri untuk kurangkan sakit pinggang."},
       {"id": "belt", "icon": "kotak", "name": "Maternity belt / belly band", "qty": "1", "why": "Sokong perut dan kurangkan sakit belakang bila berjalan pada trimester ketiga.", "link": "https://s.shopee.com.my/9V269Z9mfF", "product": "Maternity Belt Pregnancy Support Belt", "tip": "Pakai masa berjalan atau berdiri lama sahaja, bukan sepanjang hari."},
       {"id": "krimperut", "icon": "krim", "name": "Krim pelembap perut", "qty": "1", "why": "Kulit perut yang meregang selalu kering dan gatal. Pelembap buat kulit rasa lebih selesa.", "link": "https://s.shopee.com.my/7AeBNJC9Xw", "product": "Mama's Choice Stretch Mark Cream", "tip": "Sapu selepas mandi masa kulit masih lembap supaya lebih menyerap."},
@@ -277,7 +341,7 @@
       {"id": "botolair", "icon": "botol", "name": "Botol air dengan straw", "qty": "1", "why": "Senang minum sambil berbaring di wad bersalin.", "link": "https://s.shopee.com.my/5LCXBy14MM", "product": "Tupperware 1L Slim Eco Bottle Straw", "tip": "Straw yang boleh dibengkokkan senang diminum sambil baring tanpa tumpah."},
       {"id": "powerbank", "icon": "kotak", "name": "Powerbank & kabel panjang", "qty": "1", "why": "Soket di wad selalunya jauh dari katil.", "link": "https://s.shopee.com.my/113Y21vEz4", "product": "Baseus FC11 10000mAh Power Bank", "tip": "Cas penuh malam sebelum ke hospital, dan bawa kabel 2 meter."}
     ]},
-    {"no": 4, "slug": "c-section-recovery", "title": "C-Section Recovery Kit", "intro": "Barang yang bantu ibu lebih selesa semasa pulih selepas pembedahan. Ikut nasihat doktor tentang penjagaan luka.", "items": [
+    {"no": 4, "slug": "c-section-recovery", "title": "C-Section Recovery Kit", "intro": "Barang yang bantu ibu lebih selesa semasa pulih selepas pembedahan. Ikut nasihat doktor tentang penjagaan luka.", "fasa": "pantang", "items": [
       {"id": "seluar", "icon": "kotak", "name": "Seluar dalam pinggang tinggi", "qty": "4–6 helai", "why": "Getah pinggang duduk di atas luka, tak menekan parut pembedahan.", "link": "https://s.shopee.com.my/9KifxNPObm", "product": "RabbiTravel High-Waist Disposable Panties", "tip": "Pilih satu saiz lebih besar supaya getah tak menekan bawah perut."},
       {"id": "bantalluka", "icon": "bulan", "name": "Bantal kecil untuk peluk", "qty": "1", "why": "Tekan perlahan ke perut masa batuk, bersin atau bangun dari katil untuk kurangkan rasa sakit.", "link": "https://s.shopee.com.my/2LYvcXtdVL", "product": "Small Daisy Flower Plush Cushion", "tip": "Simpan dekat katil. Peluk rapat ke perut sebelum batuk, bersin atau ketawa."},
       {"id": "pad", "icon": "kotak", "name": "Pad bersalin", "qty": "1 pek", "why": "Ibu yang bersalin secara pembedahan pun tetap keluar darah nifas.", "link": "", "tip": "Tukar pad sekurang-kurangnya setiap 4 jam untuk jaga kebersihan.", "cari": "pad bersalin maternity pad"},
@@ -285,7 +349,7 @@
       {"id": "bantalmenyusu", "icon": "bulan", "name": "Bantal menyusu", "qty": "1", "why": "Elak baby menekan perut masa menyusu.", "link": "https://s.shopee.com.my/7VH1m4hxUw", "product": "Bantal Menyusu 2in1 Nursing Pillow U", "tip": "Cuba posisi football hold, iaitu baby di sisi badan, supaya berat baby tak kena pada luka."},
       {"id": "bajulonggar", "icon": "bajuibu", "name": "Baju tidur longgar berbutang depan", "qty": "2–3 helai", "why": "Kain longgar tak menggesel luka, dan senang menyusu.", "link": "", "tip": "Pilih kain cotton atau rayon yang sejuk, dan elak seluar bergetah ketat di pinggang.", "cari": "baju tidur menyusu butang depan"}
     ]},
-    {"no": 5, "slug": "vaginal-birth-recovery", "title": "Vaginal Birth Recovery Kit", "intro": "Barang untuk keselesaan ibu selepas bersalin normal, terutama kalau ada jahitan.", "items": [
+    {"no": 5, "slug": "vaginal-birth-recovery", "title": "Vaginal Birth Recovery Kit", "intro": "Barang untuk keselesaan ibu selepas bersalin normal, terutama kalau ada jahitan.", "fasa": "pantang", "items": [
       {"id": "peribottle", "icon": "botol", "name": "Botol semburan perineum (peri bottle)", "qty": "1", "why": "Sembur air suam untuk bersihkan kawasan jahitan selepas buang air, tanpa perlu lap kuat.", "link": "https://s.shopee.com.my/4VdQCafRPJ", "product": "600ml Foldable Peri Bottle", "tip": "Isi air suam dan sembur dari depan ke belakang, kemudian tepuk kering dengan tisu lembut."},
       {"id": "pad", "icon": "kotak", "name": "Pad bersalin", "qty": "1–2 pek", "why": "Lebih panjang dan lebih menyerap untuk darah nifas.", "link": "", "tip": "Tukar pad sekurang-kurangnya setiap 4 jam untuk jaga kebersihan kawasan jahitan.", "cari": "pad bersalin maternity pad"},
       {"id": "kusyen", "icon": "kotak", "name": "Kusyen duduk bentuk donut", "qty": "1", "why": "Kurangkan tekanan pada kawasan jahitan masa duduk.", "link": "https://s.shopee.com.my/6q1KytUi7h", "product": "MUYU Donut Pillow Seat Cushion", "tip": "Guna masa duduk lama seperti menyusu atau makan. Bawa sekali dalam kereta."},
@@ -293,7 +357,7 @@
       {"id": "coolpad", "icon": "kotak", "name": "Pad sejuk perineum", "qty": "1 pek", "why": "Bantu kurangkan bengkak pada hari-hari awal.", "link": "https://s.shopee.com.my/2BFVQKj31Y", "product": "Postpartum Gel Bead Cold Packs", "tip": "Balut dengan kain nipis sebelum guna, dan jangan letak terus pada kulit terlalu lama."},
       {"id": "botolair", "icon": "botol", "name": "Botol air besar", "qty": "1", "why": "Minum air yang cukup bantu elak sembelit selepas bersalin.", "link": "https://s.shopee.com.my/30ocPgNdH7", "product": "Tupperware 1L Slim Eco Bottle Straw", "tip": "Isi penuh setiap kali duduk menyusu, jadi senang kira berapa botol sehari."}
     ]},
-    {"no": 6, "slug": "set-berpantang", "title": "Set Berpantang", "intro": "Barang yang biasa digunakan dalam tempoh berpantang 44 hari.", "checked": "2026-10-09", "items": [
+    {"no": 6, "slug": "set-berpantang", "title": "Set Berpantang", "intro": "Barang yang biasa digunakan dalam tempoh berpantang 44 hari.", "checked": "2026-10-09", "fasa": "pantang", "items": [
       {"id": "bengkung", "icon": "kotak", "name": "Bengkung / barut", "qty": "1–2", "why": "Sokong perut sepanjang berpantang, sama ada jenis tradisional atau moden.", "tip": "Ibu yang bersalin secara pembedahan, tanya doktor dulu.", "link": "https://s.shopee.com.my/7ptsAlELAG", "product": "Bengkung Bersalin Berzip & Bertali Tradisional"},
       {"id": "herba", "icon": "mandi", "name": "Set mandian herba", "qty": "1 set", "why": "Herba direbus untuk mandi air suam semasa berpantang.", "link": "https://s.shopee.com.my/AUudLg6wlg", "product": "Herba Mandian Ibu Berpantang", "tip": "Rebus herba awal pagi, kemudian campur dengan air suam untuk mandi."},
       {"id": "pilis", "icon": "krim", "name": "Pilis & param", "qty": "1 set", "why": "Amalan berpantang tradisional untuk dahi dan badan.", "tip": "Pilih produk berdaftar dengan KKM (ada nombor MAL).", "link": "https://s.shopee.com.my/7ptsAn98Hy", "product": "Sariayu Set Habis Bersalin 3in1 (Tapel, Pilis & Param)"},
@@ -301,14 +365,14 @@
       {"id": "termos", "icon": "botol", "name": "Termos air panas", "qty": "1", "why": "Sediakan air suam untuk minum dan mandi sepanjang hari.", "link": "https://s.shopee.com.my/7VH1mD3c40", "product": "GIANXI 1L Thermos Hot Water Bottle", "tip": "Isi air panas waktu pagi, cukup untuk minum dan bancuh air sepanjang hari."},
       {"id": "stoking", "icon": "sarung", "name": "Stoking tebal", "qty": "2–3 pasang", "why": "Jaga kaki sentiasa hangat, terutama dalam bilik aircond.", "link": "https://s.shopee.com.my/9KifxcNBcc", "product": "Maternity Socks Stoking Pantang Fluffy", "tip": "Sediakan sepasang lebih untuk ganti bila stoking basah masa ke bilik air."}
     ]},
-    {"no": 7, "slug": "postpartum-care", "title": "Postpartum Care Kit", "intro": "Barang asas untuk ibu dalam 6 minggu pertama selepas bersalin.", "items": [
+    {"no": 7, "slug": "postpartum-care", "title": "Postpartum Care Kit", "intro": "Barang asas untuk ibu dalam 6 minggu pertama selepas bersalin.", "fasa": "pantang", "items": [
       {"id": "pad", "icon": "kotak", "name": "Pad bersalin", "qty": "2 pek", "why": "Darah nifas boleh berterusan sehingga beberapa minggu.", "link": "", "tip": "Stok 2 pek dulu. Bila darah dah berkurang, tukar ke pad biasa jenis panjang.", "cari": "pad bersalin maternity pad"},
       {"id": "seluar", "icon": "kotak", "name": "Seluar dalam pakai buang", "qty": "1 pek", "why": "Jimat masa dan senang ditukar pada minggu-minggu awal.", "link": "", "tip": "Lepas minggu kedua, ramai ibu tukar ke seluar dalam cotton pinggang tinggi.", "cari": "seluar dalam pakai buang bersalin"},
       {"id": "nursingpad", "icon": "kotak", "name": "Nursing pad", "qty": "1 kotak", "why": "Serap susu yang meleleh supaya baju tak basah.", "link": "https://s.shopee.com.my/5At6zyTdgB", "product": "100pcs Disposable Breast Pads Ultra Thin", "tip": "Tukar setiap kali basah supaya kulit puting tak lembap terlalu lama."},
       {"id": "lanolin", "icon": "krim", "name": "Krim puting lanolin", "qty": "1 tiub", "why": "Lembapkan puting yang kering atau merekah.", "link": "https://s.shopee.com.my/4qGGbNmvaL", "product": "Lansinoh Lanolin Nipple Cream", "tip": "Sapu nipis selepas menyusu. Kalau puting merekah teruk atau berdarah, jumpa jururawat laktasi."},
       {"id": "botolair", "icon": "botol", "name": "Botol air dengan straw", "qty": "1", "why": "Senang minum sambil menyusu.", "link": "https://s.shopee.com.my/80DIMsDGAc", "product": "Tupperware 1L Slim Eco Bottle Straw", "tip": "Letak sebotol di tempat biasa menyusu supaya tak lupa minum."}
     ]},
-    {"no": 8, "slug": "breastfeeding-starter", "title": "Breastfeeding Starter Kit", "intro": "Barang asas untuk mula menyusu badan dengan lebih selesa.", "checked": "2026-10-09", "items": [
+    {"no": 8, "slug": "breastfeeding-starter", "title": "Breastfeeding Starter Kit", "intro": "Barang asas untuk mula menyusu badan dengan lebih selesa.", "checked": "2026-10-09", "fasa": "menyusu", "items": [
       {"id": "bantal", "icon": "bulan", "name": "Bantal menyusu", "qty": "1", "why": "Angkat baby ke paras dada supaya bahu dan belakang ibu tak tegang.", "link": "https://s.shopee.com.my/gQhdWJexC", "product": "Bantal Menyusu 2in1 Nursing Pillow U", "tip": "Pastikan baby setentang dengan dada. Ibu tak perlu membongkok ke arah baby."},
       {"id": "lanolin", "icon": "krim", "name": "Krim puting lanolin", "qty": "1 tiub", "why": "Lembapkan puting yang kering atau merekah pada minggu-minggu awal.", "link": "https://s.shopee.com.my/2LYvcn4Q4x", "product": "Lansinoh Lanolin Nipple Cream", "tip": "Lanolin tulen tak perlu dilap sebelum menyusu."},
       {"id": "nursingpad", "icon": "kotak", "name": "Nursing pad", "qty": "1 kotak", "why": "Serap susu yang meleleh supaya baju tak basah.", "tip": "Ada jenis pakai buang dan jenis boleh basuh.", "link": "https://s.shopee.com.my/4B0Zo8lTCS", "product": "100pcs Disposable Breast Pads Ultra Thin"},
@@ -316,7 +380,7 @@
       {"id": "cover", "icon": "bedung", "name": "Penutup menyusu (nursing cover)", "qty": "1", "why": "Menyusu di luar rumah dengan lebih selesa.", "link": "https://s.shopee.com.my/W7HRSNinM", "product": "Yootree Nursing Cover", "tip": "Pilih yang ada rangka di bahagian leher supaya ibu masih nampak muka baby."},
       {"id": "pengumpul", "icon": "pam", "name": "Pengumpul susu silikon", "qty": "1", "why": "Tadah susu yang meleleh dari sebelah lagi masa baby menyusu.", "link": "https://s.shopee.com.my/1qcf1v9Vk7", "product": "Haakaa Gen.2 Silicone Breast Pump Milk Collector", "tip": "Pasang pada sebelah lagi masa baby menyusu. Susu yang terkumpul boleh disimpan sebagai stok."}
     ]},
-    {"no": 9, "slug": "breast-pump-starter", "title": "Breast Pump Starter Set", "intro": "Barang asas untuk mula pam susu, sama ada untuk stok atau sebelum kembali bekerja.", "checked": "2026-10-09", "items": [
+    {"no": 9, "slug": "breast-pump-starter", "title": "Breast Pump Starter Set", "intro": "Barang asas untuk mula pam susu, sama ada untuk stok atau sebelum kembali bekerja.", "checked": "2026-10-09", "fasa": "menyusu", "items": [
       {"id": "pam", "icon": "pam", "name": "Pam susu (manual atau elektrik)", "qty": "1", "why": "Manual sesuai untuk pam sekali-sekala. Elektrik lebih sesuai kalau pam setiap hari.", "tip": "Pastikan saiz corong padan dengan puting supaya pam lebih selesa.", "link": "https://s.shopee.com.my/9fLWMKjkrX", "product": "Real Bubee Manual Breast Pump"},
       {"id": "begsusu", "icon": "kotak", "name": "Beg simpanan susu", "qty": "1 kotak", "why": "Simpan susu perah dalam peti sejuk atau freezer.", "link": "https://s.shopee.com.my/4LK00YHsvU", "product": "30pcs Breastmilk Storage Bag Double Lock", "tip": "Jangan isi sampai penuh sebab susu mengembang bila beku. Bekukan secara rata supaya jimat ruang."},
       {"id": "botol", "icon": "botol", "name": "Botol simpanan susu", "qty": "2–4", "why": "Tadah dan simpan susu terus dari pam.", "link": "https://s.shopee.com.my/7Kxba6LOnB", "product": "Yootree Glass Breast Milk Storage Bottle", "tip": "Pilih botol yang boleh dipasang terus pada pam supaya tak perlu tuang dua kali."},
@@ -324,14 +388,14 @@
       {"id": "brapam", "icon": "bajuibu", "name": "Bra pam hands-free", "qty": "1", "why": "Pegang corong pam supaya tangan bebas.", "link": "https://s.shopee.com.my/4fwqPH4iIb", "product": "Hands Free Breast Pumping Bra", "tip": "Ramai ibu pakai di atas bra menyusu, jadi tak perlu tukar baju setiap kali pam."},
       {"id": "pen", "icon": "kotak", "name": "Pen penanda kalis air", "qty": "1", "why": "Tulis tarikh dan masa pada setiap beg susu.", "link": "https://s.shopee.com.my/4fwqPI8dm4", "product": "Quick-Dry Permanent Waterproof Marker", "tip": "Tulis tarikh dan masa, contohnya 9/10 2PTG, supaya susu lama diguna dulu."}
     ]},
-    {"no": 10, "slug": "manual-breast-pump", "title": "Manual Breast Pump Kit", "intro": "Set ringkas untuk ibu yang pam sekali-sekala atau nak pam tanpa wayar.", "checked": "2026-10-09", "items": [
+    {"no": 10, "slug": "manual-breast-pump", "title": "Manual Breast Pump Kit", "intro": "Set ringkas untuk ibu yang pam sekali-sekala atau nak pam tanpa wayar.", "checked": "2026-10-09", "fasa": "menyusu", "items": [
       {"id": "pam", "icon": "pam", "name": "Pam susu manual", "qty": "1", "why": "Ringan, senyap dan tak perlu dicas.", "link": "https://s.shopee.com.my/1qcf1wRo1P", "product": "Real Bubee Manual Breast Pump", "tip": "Mula dengan pam laju dan ringan untuk rangsang susu keluar, kemudian tukar ke sedutan perlahan dan dalam."},
       {"id": "pengumpul", "icon": "pam", "name": "Pengumpul susu silikon", "qty": "1", "why": "Tadah susu yang meleleh tanpa perlu mengepam.", "link": "https://s.shopee.com.my/1B0qYTHEe", "product": "Haakaa Gen.2 Silicone Breast Pump Milk Collector", "tip": "Picit sedikit bahagian bawah sebelum lekat supaya sedutan lebih kuat."},
       {"id": "begsusu", "icon": "kotak", "name": "Beg simpanan susu", "qty": "1 kotak", "why": "Simpan susu perah dengan kemas.", "link": "https://s.shopee.com.my/7faRygHMYL", "product": "30pcs Breastmilk Storage Bag Double Lock", "tip": "Tolak keluar udara sebelum tutup zip supaya beg mudah disusun rata."},
       {"id": "berus", "icon": "sabun", "name": "Berus botol kecil", "qty": "1", "why": "Sesuai untuk bahagian pam yang kecil.", "link": "https://s.shopee.com.my/2gBm1Zm3es", "product": "Dr.isla Silicone Milk Bottle Brush 3in1", "tip": "Guna berus kecil untuk injap dan membran pam. Bahagian ini paling mudah tersumbat sisa susu."},
       {"id": "pouch", "icon": "beg", "name": "Pouch simpanan pam", "qty": "1", "why": "Simpan pam dan aksesori dengan kemas bila dibawa keluar.", "link": "https://s.shopee.com.my/1VzodUniOx", "product": "Silicone Pump Part Storage Pouch", "tip": "Simpan pam dalam pouch hanya bila semua bahagian dah betul-betul kering."}
     ]},
-    {"no": 11, "slug": "electric-breast-pump", "title": "Electric Breast Pump Set", "intro": "Set untuk ibu yang pam setiap hari, di rumah atau di pejabat.", "checked": "2026-10-09", "items": [
+    {"no": 11, "slug": "electric-breast-pump", "title": "Electric Breast Pump Set", "intro": "Set untuk ibu yang pam setiap hari, di rumah atau di pejabat.", "checked": "2026-10-09", "fasa": "menyusu", "items": [
       {"id": "pam", "icon": "pam", "name": "Pam susu elektrik (double atau wearable)", "qty": "1", "why": "Pam dua belah sekali gus menjimatkan masa. Jenis wearable boleh dipakai dalam baju.", "link": "https://s.shopee.com.my/70KlBcPPvE", "product": "Empreus Smart IOT 2.0 Wearable Breast Pump", "tip": "Mula pada tahap sedutan rendah dan naikkan perlahan-lahan. Sedutan paling kuat tak semestinya dapat susu lebih banyak."},
       {"id": "corong", "icon": "pam", "name": "Corong (flange) saiz ganti", "qty": "1 set", "why": "Saiz puting boleh berubah. Corong yang padan kurangkan rasa sakit.", "link": "https://s.shopee.com.my/8pmPN0GS7J", "product": "Bunny Goody Insert Flange", "tip": "Puting patut bergerak bebas dalam corong tanpa banyak kulit areola tertarik masuk."},
       {"id": "brapam", "icon": "bajuibu", "name": "Bra pam hands-free", "qty": "1", "why": "Tangan bebas untuk buat kerja lain masa pam.", "link": "https://s.shopee.com.my/1LgOR9PJDk", "product": "Hands Free Breast Pumping Bra", "tip": "Pilih yang ada bukaan depan supaya boleh dipakai sepanjang hari kerja."},
@@ -339,7 +403,7 @@
       {"id": "cooler", "icon": "beg", "name": "Cooler bag + ice pack", "qty": "1", "why": "Bawa balik susu dari pejabat dalam keadaan sejuk.", "link": "https://s.shopee.com.my/9Kifxxbb0t", "product": "GabaG Cooler Bag Thermal Handbag", "tip": "Letak ice pack di atas dan bawah botol, dan jangan selalu buka cooler bag."},
       {"id": "powerbank", "icon": "kotak", "name": "Powerbank", "qty": "1", "why": "Untuk pam jenis boleh cas ketika di luar.", "link": "https://s.shopee.com.my/6q1KykiJYv", "product": "Baseus FC11 10000mAh Power Bank", "tip": "Semak pam boleh dicas guna USB dan output powerbank mencukupi sebelum beli."}
     ]},
-    {"no": 12, "slug": "milk-storage-feeding", "title": "Milk Storage & Feeding Kit", "intro": "Barang untuk simpan susu perah dan beri kepada baby dengan selamat.", "checked": "2026-10-09", "items": [
+    {"no": 12, "slug": "milk-storage-feeding", "title": "Milk Storage & Feeding Kit", "intro": "Barang untuk simpan susu perah dan beri kepada baby dengan selamat.", "checked": "2026-10-09", "fasa": "menyusu", "items": [
       {"id": "begsusu", "icon": "kotak", "name": "Beg simpanan susu", "qty": "1–2 kotak", "why": "Jimat ruang freezer kerana boleh dibekukan secara rata.", "link": "https://s.shopee.com.my/1qcf1xysgK", "product": "30pcs Breastmilk Storage Bag Double Lock", "tip": "Simpan dalam bahagian kecil, sekitar 60–120 ml, supaya kurang membazir bila dicairkan."},
       {"id": "botol", "icon": "botol", "name": "Botol simpanan susu bertutup", "qty": "4", "why": "Untuk susu yang akan diguna dalam masa terdekat.", "link": "https://s.shopee.com.my/1qcf1zv33S", "product": "Yootree Glass Breast Milk Storage Bottle", "tip": "Simpan di bahagian belakang peti sejuk, bukan di pintu, sebab suhunya lebih stabil."},
       {"id": "organizer", "icon": "rak", "name": "Penyusun beg susu dalam freezer", "qty": "1", "why": "Susun ikut tarikh supaya susu lama diguna dulu.", "link": "https://s.shopee.com.my/7ptsBEnZxv", "product": "Babymommy Breast Milk Freezer Organizer", "tip": "Masukkan beg baru dari belakang dan ambil dari depan, supaya stok lama diguna dulu."},
@@ -347,14 +411,14 @@
       {"id": "puting", "icon": "botol", "name": "Botol susu & puting aliran perlahan", "qty": "2", "why": "Puting aliran perlahan sesuai untuk baby yang juga menyusu badan.", "link": "https://s.shopee.com.my/1gJEpwsvq5", "product": "iBebe MooMoo 2.0 Ultra Soft Bottle", "tip": "Cuba cara paced bottle feeding: botol dipegang hampir mendatar dan baby berehat sekejap-sekejap."},
       {"id": "pen", "icon": "kotak", "name": "Pen penanda kalis air", "qty": "1", "why": "Tulis tarikh pada setiap beg dan botol.", "link": "https://s.shopee.com.my/1VzodTSfca", "product": "Quick-Dry Permanent Waterproof Marker", "tip": "Tulis nama baby sekali kalau susu dihantar ke pengasuh."}
     ]},
-    {"no": 13, "slug": "newborn-feeding", "title": "Newborn Feeding Set", "intro": "Barang asas untuk waktu menyusu newborn, sama ada susu ibu atau susu formula.", "checked": "2026-10-09", "items": [
+    {"no": 13, "slug": "newborn-feeding", "title": "Newborn Feeding Set", "intro": "Barang asas untuk waktu menyusu newborn, sama ada susu ibu atau susu formula.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "botol", "icon": "botol", "name": "Botol susu newborn (120–150 ml)", "qty": "2–4", "why": "Saiz kecil sesuai untuk kuantiti minum newborn.", "link": "https://s.shopee.com.my/3g4JDcusEj", "product": "iBebe MooMoo 2.0 Ultra Soft Bottle", "tip": "Beli 2 botol dulu untuk cuba. Ada baby yang memilih bentuk puting."},
       {"id": "puting", "icon": "botol", "name": "Puting aliran perlahan saiz newborn", "qty": "2–4", "why": "Aliran perlahan kurangkan risiko baby tersedak.", "link": "https://s.shopee.com.my/30ocQORAay", "product": "iBebe MooMoo Nipple", "tip": "Tukar puting bila nampak retak, melekit atau berubah bentuk."},
       {"id": "burpcloth", "icon": "bedung", "name": "Kain lap muntah (burp cloth)", "qty": "4–6", "why": "Lap susu yang meleleh dan muntah selepas sendawa.", "link": "https://s.shopee.com.my/6L54OZDxJu", "product": "Woobbies 6 Layer Muslin Handkerchief", "tip": "Letak di bahu sebelum sendawakan baby. Kain muslin cepat kering."},
       {"id": "bantal", "icon": "bulan", "name": "Bantal menyusu", "qty": "1", "why": "Sokong baby pada paras yang selesa.", "link": "https://s.shopee.com.my/2LYvcaSACH", "product": "Bantal Menyusu 2in1 Nursing Pillow U", "tip": "Tanggalkan sarung dan basuh sekali seminggu sebab mudah terkena susu."},
       {"id": "dispenser", "icon": "botol", "name": "Bekas sukatan susu formula", "qty": "1", "why": "Bawa sukatan susu formula yang siap diukur bila keluar rumah.", "link": "https://s.shopee.com.my/2gBm1qSKrb", "product": "4 Layer Stackable Milk Powder Container", "tip": "Pastikan bekas betul-betul kering sebelum diisi supaya susu tepung tak berketul."}
     ]},
-    {"no": 14, "slug": "bottle-feeding-starter", "title": "Bottle Feeding Starter Kit", "intro": "Barang untuk mula beri susu botol di rumah dan di luar.", "checked": "2026-10-09", "items": [
+    {"no": 14, "slug": "bottle-feeding-starter", "title": "Bottle Feeding Starter Kit", "intro": "Barang untuk mula beri susu botol di rumah dan di luar.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "botol", "icon": "botol", "name": "Botol susu", "qty": "4–6", "why": "Cukup untuk beberapa kali minum sebelum perlu dibasuh.", "link": "https://s.shopee.com.my/5q8nnbzCov", "product": "iBebe MooMoo 2.0 Ultra Soft Bottle", "tip": "Pilih botol leher lebar. Lebih senang dibasuh dan diisi."},
       {"id": "puting", "icon": "botol", "name": "Puting ganti", "qty": "4", "why": "Tukar ikut peringkat umur dan bila puting mula rosak.", "link": "https://s.shopee.com.my/3qNjPvXPq9", "product": "iBebe MooMoo Nipple", "tip": "Mula dengan aliran perlahan. Naik saiz bila baby nampak penat menyedut atau ambil masa terlalu lama."},
       {"id": "berus", "icon": "sabun", "name": "Berus botol & puting", "qty": "1 set", "why": "Bersihkan sisa susu di dasar botol dan dalam puting.", "link": "https://s.shopee.com.my/8AWiZgZIhq", "product": "Dr.isla Silicone Milk Bottle Brush 3in1", "tip": "Asingkan berus botol daripada span pinggan mangkuk."},
@@ -362,21 +426,21 @@
       {"id": "steril", "icon": "botol", "name": "Pensteril botol", "qty": "1", "why": "Steril botol dan puting, terutama untuk baby bawah 3 bulan.", "link": "https://s.shopee.com.my/70KlBjCYJP", "product": "Dr.isla Bottle Sterilizer & Warmer 4in1", "tip": "Basuh dan bilas botol dulu sebelum masuk pensteril. Pensteril tak buang sisa susu."},
       {"id": "termos", "icon": "botol", "name": "Termos air panas", "qty": "1", "why": "Sediakan air untuk bancuh susu bila di luar rumah.", "tip": "Ikut arahan pada tin susu untuk suhu air dan sukatan.", "link": "https://s.shopee.com.my/7VH1mDCYAb", "product": "GIANXI 1L Thermos Hot Water Bottle"}
     ]},
-    {"no": 15, "slug": "bottle-cleaning", "title": "Baby Bottle Cleaning Set", "intro": "Barang untuk basuh botol dan bahagian pam dengan bersih.", "checked": "2026-10-09", "items": [
+    {"no": 15, "slug": "bottle-cleaning", "title": "Baby Bottle Cleaning Set", "intro": "Barang untuk basuh botol dan bahagian pam dengan bersih.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "berus", "icon": "sabun", "name": "Berus botol & berus puting", "qty": "1 set", "why": "Sampai ke dasar botol dan lubang puting.", "link": "https://s.shopee.com.my/1gJEpkBJVF", "product": "Dr.isla Silicone Milk Bottle Brush 3in1", "tip": "Tukar berus setiap 2–3 bulan atau bila bulunya dah kembang."},
       {"id": "sabun", "icon": "sabun", "name": "Sabun pencuci botol baby", "qty": "1", "why": "Formula lembut dan mudah dibilas.", "link": "https://s.shopee.com.my/gQheBYEuA", "product": "Pureen Liquid Cleanser Refill 600ml", "tip": "Bilas sampai tiada buih. Sisa sabun boleh tinggalkan bau pada puting."},
       {"id": "rak", "icon": "rak", "name": "Rak pengering botol", "qty": "1", "why": "Botol kering dengan cepat dan tak berhabuk.", "link": "https://s.shopee.com.my/905pZXgGbi", "product": "Dr.isla 6in1 Bottle Brush Drying Rack", "tip": "Lap rak dan bekas airnya seminggu sekali supaya tak berlumut."},
       {"id": "besen", "icon": "mandi", "name": "Besen khas basuh botol", "qty": "1", "why": "Asingkan barang baby daripada pinggan mangkuk lain di sinki.", "link": "https://s.shopee.com.my/2gBm1t4zJA", "product": "Portable Baby Bottle Wash Basin", "tip": "Jangan letak botol terus dalam sinki yang juga dipakai untuk bahan mentah."},
       {"id": "berusstraw", "icon": "sabun", "name": "Berus straw", "qty": "1", "why": "Untuk cawan straw dan tiub pam yang kecil.", "link": "https://s.shopee.com.my/4LK00csM04", "product": "Nylon Straw Cleaning Brush 10pcs", "tip": "Basuh straw terus selepas guna, sebelum sisa susu kering di dalam."}
     ]},
-    {"no": 16, "slug": "bottle-sterilizer", "title": "Baby Bottle Sterilizer Set", "intro": "Barang untuk steril botol dan puting dengan mudah.", "checked": "2026-10-09", "items": [
+    {"no": 16, "slug": "bottle-sterilizer", "title": "Baby Bottle Sterilizer Set", "intro": "Barang untuk steril botol dan puting dengan mudah.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "uv", "icon": "kotak", "name": "Pensteril & pengering elektrik", "qty": "1", "why": "Steril dan keringkan botol sekali jalan.", "link": "https://s.shopee.com.my/BUR3NGg8a", "product": "Autumnz Mini UV Sterilizer & Dryer", "tip": "Susun botol tak terlalu padat supaya semua bahagian dapat disteril."},
       {"id": "microwave", "icon": "kotak", "name": "Pensteril microwave", "qty": "1", "why": "Pilihan yang lebih murah dan jimat ruang.", "link": "https://s.shopee.com.my/2VsLpbuVCo", "product": "Horigen Microwave Steam Sterilizer Bags", "tip": "Ikut masa dan jumlah air yang tertera, dan biar sejuk sekejap sebelum buka sebab wapnya sangat panas."},
       {"id": "tong", "icon": "gunting", "name": "Penyepit botol", "qty": "1", "why": "Ambil botol yang baru disteril tanpa sentuh dengan tangan.", "link": "https://s.shopee.com.my/3Vkt1Seba7", "product": "Milk Bottle Clamp Sterilization Tong", "tip": "Steril penyepit sekali bersama botol."},
       {"id": "descaler", "icon": "sabun", "name": "Pembersih kerak (descaler)", "qty": "1", "why": "Buang kerak air dalam pensteril wap supaya tahan lama.", "link": "https://s.shopee.com.my/50ZgoEOWRR", "product": "Autumnz Steam Steriliser Descaler", "tip": "Guna sebulan sekali, atau lebih kerap kalau air di rumah banyak kapur."},
       {"id": "bekas", "icon": "kotak", "name": "Bekas simpanan botol steril", "qty": "1", "why": "Simpan botol yang dah steril supaya bebas habuk.", "link": "https://s.shopee.com.my/50ZgoEOWRR", "product": "Lamoda Milk Bottle Storage Box With Lid", "tip": "Pasang puting dan tutup botol terus selepas steril supaya bahagian dalam tak tersentuh."}
     ]},
-    {"no": 17, "slug": "newborn-bath-time", "title": "Newborn Bath Time Set", "intro": "Barang untuk mandikan newborn dengan selamat dan selesa.", "checked": "2026-10-09", "items": [
+    {"no": 17, "slug": "newborn-bath-time", "title": "Newborn Bath Time Set", "intro": "Barang untuk mandikan newborn dengan selamat dan selesa.", "checked": "2026-10-09", "fasa": "harian", "items": [
       {"id": "tab", "icon": "mandi", "name": "Tab mandi baby berkaki atau boleh lipat", "qty": "1", "why": "Ketinggian berkaki kurangkan sakit belakang ibu.", "link": "https://s.shopee.com.my/50ZgoHxTEn", "product": "Baby BathTub Stand Foldable", "tip": "Sediakan semua barang di sebelah tab sebelum mula mandi."},
       {"id": "sabun", "icon": "sabun", "name": "Sabun & syampu baby tanpa pewangi", "qty": "1", "why": "Lembut untuk kulit newborn yang sensitif.", "link": "https://s.shopee.com.my/5fpNbWyvce", "product": "Baby Dove Sensitive Care Head To Toe", "tip": "Newborn tak perlu sabun setiap hari. Air suam dah cukup untuk kebanyakan hari."},
       {"id": "tuala", "icon": "bedung", "name": "Tuala bertudung", "qty": "2", "why": "Balut baby terus selepas mandi supaya tak sejuk.", "link": "https://s.shopee.com.my/BUR3RJjmu", "product": "Bearmoss Hooded Muslin Baby Towel", "tip": "Lap celah leher, ketiak dan lipatan paha sampai kering untuk elak ruam."},
@@ -384,28 +448,28 @@
       {"id": "termometer", "icon": "termometer", "name": "Termometer air mandi", "qty": "1", "why": "Air mandi baby sepatutnya suam, sekitar 37°C.", "link": "https://s.shopee.com.my/9pewZFLerc", "product": "KANGN Baby Bath Temperature Monitor", "tip": "Kalau tiada termometer, rasa air dengan siku. Air patut rasa suam, bukan panas."},
       {"id": "jaring", "icon": "mandi", "name": "Jaring atau kusyen mandi", "qty": "1", "why": "Sokong baby supaya ibu boleh guna dua tangan.", "warn": "Jangan tinggalkan baby seorang diri dalam air walaupun sekejap.", "link": "https://s.shopee.com.my/9V26AYRyJ5", "product": "Baby Bath Tub Net Support", "tip": "Biar jaring kering sepenuhnya selepas guna supaya tak berkulat."}
     ]},
-    {"no": 18, "slug": "baby-skincare-starter", "title": "Baby Skincare Starter Kit", "intro": "Barang penjagaan kulit asas untuk newborn yang kulitnya masih sensitif.", "items": [
+    {"no": 18, "slug": "baby-skincare-starter", "title": "Baby Skincare Starter Kit", "intro": "Barang penjagaan kulit asas untuk newborn yang kulitnya masih sensitif.", "fasa": "harian", "items": [
       {"id": "pencuci", "icon": "sabun", "name": "Pencuci badan baby tanpa pewangi", "qty": "1", "why": "Bersihkan tanpa buat kulit kering.", "link": "https://s.shopee.com.my/BUR3QTDSd", "product": "Baby Dove Sensitive Care Head To Toe", "tip": "Guna sedikit sahaja, terutama pada kawasan lipatan dan punggung."},
       {"id": "losyen", "icon": "krim", "name": "Losyen pelembap baby", "qty": "1", "why": "Untuk kawasan kulit yang kering. Pilih yang fragrance-free.", "link": "https://s.shopee.com.my/2BFVRAfdoJ", "product": "Baby Dove Sensitive Care Hand & Body", "tip": "Cuba sedikit di kaki dulu untuk tengok kulit baby sesuai atau tak."},
       {"id": "krimlampin", "icon": "krim", "name": "Krim lampin zinc oxide", "qty": "1 tiub", "why": "Lindungi kulit daripada ruam lampin.", "link": "", "tip": "Sapu lapisan nipis setiap kali tukar lampin bila kulit mula merah.", "cari": "krim lampin zinc oxide"},
       {"id": "telon", "icon": "botol", "name": "Minyak telon", "qty": "1", "why": "Ramai ibu guna selepas mandi untuk hangatkan badan baby.", "tip": "Sapu sedikit sahaja dan elakkan muka.", "link": "https://s.shopee.com.my/1B0rCdrS4", "product": "MY BABY Minyak Telon Plus"},
       {"id": "kapas", "icon": "tisu", "name": "Kapas bulat", "qty": "1 pek", "why": "Lap mata dan muka baby dengan air suam.", "link": "https://s.shopee.com.my/4LK01BwIOg", "product": "Pureen Cotton Ball/Pads", "tip": "Guna kapas baru untuk setiap mata, dan lap dari bucu dalam ke luar."}
     ]},
-    {"no": 19, "slug": "newborn-grooming", "title": "Newborn Grooming Kit", "intro": "Barang untuk jaga kuku, rambut dan hidung newborn.", "checked": "2026-10-09", "items": [
+    {"no": 19, "slug": "newborn-grooming", "title": "Newborn Grooming Kit", "intro": "Barang untuk jaga kuku, rambut dan hidung newborn.", "checked": "2026-10-09", "fasa": "harian", "items": [
       {"id": "gunting", "icon": "gunting", "name": "Gunting kuku baby", "qty": "1", "why": "Kuku newborn cepat panjang dan tajam.", "tip": "Potong masa baby tidur supaya dia tak bergerak.", "link": "https://s.shopee.com.my/113Y34zmYv", "product": "Pengetip Kuku Bayi Set 4pcs"},
       {"id": "pengikir", "icon": "gunting", "name": "Pengikir kuku elektrik", "qty": "1", "why": "Lebih selamat untuk ibu yang takut tergunting jari baby.", "link": "https://s.shopee.com.my/4LK01DdPLJ", "product": "Dr.isla 6in1 Electric Baby Nail Trimmer", "tip": "Mula dengan kepala pengikir yang paling lembut untuk newborn."},
       {"id": "sikat", "icon": "gunting", "name": "Sikat & berus rambut lembut", "qty": "1 set", "why": "Bantu tanggalkan kerak kepala (cradle cap) dengan lembut.", "link": "https://s.shopee.com.my/LnrFssqm8", "product": "Goat Wool Wooden Baby Hairbrush", "tip": "Sapu sedikit minyak baby pada kerak kepala dulu, kemudian sikat perlahan."},
       {"id": "aspirator", "icon": "firstaid", "name": "Penyedut hingus", "qty": "1", "why": "Bersihkan hidung tersumbat supaya baby senang menyusu.", "link": "https://s.shopee.com.my/60SE0JOPzB", "product": "Bunny Goody Baby Nasal Aspirator", "tip": "Titis saline dulu, tunggu seminit, baru sedut perlahan. Jangan sedut terlalu kerap."},
       {"id": "kasa", "icon": "tisu", "name": "Kain kasa pembersih lidah", "qty": "1 pek", "why": "Lap sisa susu di lidah baby.", "link": "https://s.shopee.com.my/9pewZO0QLM", "product": "Baby Oral Cleaner Cotton Swab", "tip": "Balut kasa di jari, celup dalam air masak suam, dan lap lidah baby perlahan."}
     ]},
-    {"no": 20, "slug": "newborn-clothing-starter", "title": "Newborn Clothing Starter Set", "intro": "Pakaian asas untuk 3 bulan pertama.", "items": [
+    {"no": 20, "slug": "newborn-clothing-starter", "title": "Newborn Clothing Starter Set", "intro": "Pakaian asas untuk 3 bulan pertama.", "fasa": "harian", "items": [
       {"id": "romper", "icon": "baju", "name": "Rompers / bodysuit", "qty": "6–8 helai", "why": "Baju utama baby untuk siang hari.", "tip": "Basuh semua baju baru sebelum dipakai.", "link": "", "cari": "romper baby cotton newborn"},
       {"id": "panjang", "icon": "baju", "name": "Set baju & seluar panjang", "qty": "4–5 set", "why": "Untuk bilik aircond dan waktu malam.", "link": "https://s.shopee.com.my/6L54OzPS4h", "product": "CantikBaby Baju Bayi Newborn Set Butang", "tip": "Beli sebahagian dalam saiz 3–6 bulan sebab baby cepat besar."},
       {"id": "sleepsuit", "icon": "baju", "name": "Sleepsuit berzip", "qty": "3", "why": "Zip lebih cepat daripada butang masa tukar lampin malam.", "link": "https://s.shopee.com.my/gQheaboxV", "product": "Baby Sleepsuit Zip", "tip": "Pilih zip dua hala supaya boleh buka bahagian bawah sahaja masa tukar lampin."},
       {"id": "topi", "icon": "baju", "name": "Topi baby", "qty": "2", "why": "Jaga kepala baby hangat pada minggu-minggu awal.", "link": "https://s.shopee.com.my/4VdQDeUw50", "product": "3Pcs Cotton Baby Beanie Newborn", "tip": "Tanggalkan topi bila baby tidur dalam bilik yang tak sejuk supaya baby tak panas."},
       {"id": "sarung", "icon": "sarung", "name": "Sarung tangan & sarung kaki", "qty": "3–4 pasang", "why": "Elak baby tercakar muka dan jaga kaki hangat.", "link": "", "tip": "Beli set yang ada sarung tangan dan sarung kaki sekali.", "cari": "sarung tangan kaki baby newborn"}
     ]},
-    {"no": 21, "slug": "diaper-changing", "title": "Newborn Diaper Changing Kit", "intro": "Semua barang untuk tukar lampin dalam satu tempat.", "items": [
+    {"no": 21, "slug": "diaper-changing", "title": "Newborn Diaper Changing Kit", "intro": "Semua barang untuk tukar lampin dalam satu tempat.", "fasa": "harian", "items": [
       {"id": "lampin", "icon": "lampin", "name": "Lampin pakai buang saiz NB / S", "qty": "1–2 pek", "why": "Newborn boleh guna sampai 8–10 lampin sehari.", "link": "", "tip": "Catat bilangan lampin basah sehari pada minggu pertama. Ini cara mudah pantau baby cukup susu.", "cari": "lampin newborn NB"},
       {"id": "tisu", "icon": "tisu", "name": "Tisu basah tanpa pewangi", "qty": "2–3 pek", "why": "Bersihkan punggung baby setiap kali tukar lampin.", "link": "", "tip": "Tutup penutup pek dengan rapat supaya tisu tak cepat kering.", "cari": "tisu basah baby tanpa pewangi"},
       {"id": "krim", "icon": "krim", "name": "Krim lampin zinc oxide", "qty": "1 tiub", "why": "Cegah dan rawat ruam lampin.", "link": "", "tip": "Tak perlu tebal. Lapisan nipis dah cukup untuk lindungi kulit.", "cari": "krim lampin zinc oxide"},
@@ -413,77 +477,77 @@
       {"id": "tong", "icon": "kotak", "name": "Tong lampin bertutup", "qty": "1", "why": "Tutup bau lampin kotor sebelum dibuang.", "link": "https://s.shopee.com.my/60SE0RqBso", "product": "LC Pedal Trash Bin", "tip": "Masukkan lampin dalam plastik kecil dan ikat dulu supaya bau tak keluar."},
       {"id": "caddy", "icon": "rak", "name": "Bakul penyusun lampin (diaper caddy)", "qty": "1", "why": "Semua barang tukar lampin mudah dicapai.", "link": "https://s.shopee.com.my/70KlCIbfTZ", "product": "NIKO Portable Baby Diaper Caddy", "tip": "Isi semula setiap malam supaya lampin dan tisu cukup untuk esok."}
     ]},
-    {"no": 22, "slug": "diaper-bag-essentials", "title": "Diaper Bag Essentials Set", "intro": "Isi beg lampin untuk keluar rumah dengan baby.", "checked": "2026-10-09", "items": [
+    {"no": 22, "slug": "diaper-bag-essentials", "title": "Diaper Bag Essentials Set", "intro": "Isi beg lampin untuk keluar rumah dengan baby.", "checked": "2026-10-09", "fasa": "keluar", "items": [
       {"id": "beg", "icon": "beg", "name": "Beg lampin jenis backpack", "qty": "1", "why": "Tangan bebas untuk dukung baby. Pilih yang banyak poket dan ada poket penebat.", "link": "https://s.shopee.com.my/gQheg0Kxn", "product": "Princeton Milano 2.0 Diaper Bag", "tip": "Masukkan sekali satu set baju ganti untuk ibu, terutama masa baby masih kecil."},
       {"id": "mat", "icon": "bedung", "name": "Alas tukar lampin lipat", "qty": "1", "why": "Tukar lampin dengan bersih di mana-mana.", "link": "https://s.shopee.com.my/70KlCKarPK", "product": "Portable Baby Diaper Changing Pad Foldable", "tip": "Simpan di poket paling luar supaya senang dicapai."},
       {"id": "wetbag", "icon": "beg", "name": "Pouch kalis air untuk baju kotor", "qty": "2", "why": "Asingkan baju basah dan kotor daripada barang lain.", "link": "https://s.shopee.com.my/6q1L03GXqD", "product": "Diaper Wet Dry Bag Double Zipper 30x36", "tip": "Bawa dua: satu untuk baju kotor, satu untuk lampin kotor kalau tiada tong sampah berdekatan."},
       {"id": "tisu", "icon": "tisu", "name": "Tisu basah saiz travel", "qty": "2–3 pek", "why": "Kecil dan muat dalam poket beg.", "link": "https://s.shopee.com.my/6q1L04tjol", "product": "Mini Baby Wipes Alcohol Free 10pcs", "tip": "Isi semula pek kecil dari pek besar di rumah. Lebih jimat."},
       {"id": "sanitizer", "icon": "sabun", "name": "Pembersih tangan", "qty": "1", "why": "Bersihkan tangan sebelum dan selepas tukar lampin.", "link": "https://s.shopee.com.my/7VH1nJvCBZ", "product": "ANTABAX Hand Sanitizer Gel 50ml", "tip": "Guna bila tiada sinki. Kalau ada sinki, basuh tangan dengan sabun lebih baik."}
     ]},
-    {"no": 23, "slug": "newborn-sleep", "title": "Newborn Sleep Essentials Set", "intro": "Barang untuk tidur newborn yang selamat dan lena.", "warn": "Elak bantal, bumper dan selimut tebal dalam katil baby.", "checked": "2026-10-09", "items": [
+    {"no": 23, "slug": "newborn-sleep", "title": "Newborn Sleep Essentials Set", "intro": "Barang untuk tidur newborn yang selamat dan lena.", "warn": "Elak bantal, bumper dan selimut tebal dalam katil baby.", "checked": "2026-10-09", "fasa": "tidur", "items": [
       {"id": "katil", "icon": "bulan", "name": "Katil baby / playard dengan tilam keras", "qty": "1", "why": "Baby paling selamat tidur terlentang di atas permukaan yang keras dan rata.", "link": "https://s.shopee.com.my/1LgOS0CySf", "product": "Mamakiddies UKS Portable Baby Travel Cot Playpen", "tip": "Letak katil baby dalam bilik ibu bapa, sekurang-kurangnya untuk 6 bulan pertama."},
       {"id": "cadar", "icon": "bedung", "name": "Cadar fitted saiz tilam baby", "qty": "2–3", "why": "Cadar yang ketat tak berkedut atau tercabut.", "link": "https://s.shopee.com.my/6L54PD6jdM", "product": "Baby Cot Fitted Sheet", "tip": "Tarik hujung cadar. Kalau mudah terangkat, cadar terlalu longgar."},
       {"id": "sleepsack", "icon": "bedung", "name": "Sleeping bag baby (sleep sack)", "qty": "2", "why": "Ganti selimut longgar supaya muka baby tak tertutup.", "link": "https://s.shopee.com.my/8Kq8muGB9E", "product": "Insular Sleeveless Baby Sleeping Bag", "tip": "Pilih saiz ikut berat dan umur, supaya leher dan lubang tangan tak terlalu besar."},
       {"id": "whitenoise", "icon": "bulan", "name": "Mesin white noise", "qty": "1", "why": "Ramai ibu guna untuk bantu baby lena.", "link": "https://s.shopee.com.my/9APFmSPjTa", "product": "Kiumo White Noise Baby Sleep Machine", "tip": "Letak jauh dari kepala baby dan guna pada tahap perlahan."},
       {"id": "lampu", "icon": "bulan", "name": "Lampu tidur malap", "qty": "1", "why": "Cukup terang untuk tukar lampin malam tanpa kejutkan baby.", "link": "https://s.shopee.com.my/9APFmTUYM6", "product": "Dimmable LED Night Lamp", "tip": "Pilih cahaya warna hangat seperti kuning atau oren untuk tukar lampin waktu malam."}
     ]},
-    {"no": 24, "slug": "baby-bedding", "title": "Baby Bedding Set", "intro": "Cadar dan alas untuk katil baby yang selamat.", "warn": "Elak bantal, bumper dan selimut tebal dalam katil baby.", "checked": "2026-10-09", "items": [
+    {"no": 24, "slug": "baby-bedding", "title": "Baby Bedding Set", "intro": "Cadar dan alas untuk katil baby yang selamat.", "warn": "Elak bantal, bumper dan selimut tebal dalam katil baby.", "checked": "2026-10-09", "fasa": "tidur", "items": [
       {"id": "tilam", "icon": "bulan", "name": "Tilam baby keras", "qty": "1", "why": "Tilam keras dan rata paling selamat untuk baby tidur.", "link": "https://s.shopee.com.my/7faRzkUzGX", "product": "ZEECLOUD Comfylove Baby Mattress Medium Firm", "tip": "Tilam patut muat ketat dalam katil. Kalau dua jari boleh masuk di celah tepi, tilam terlalu kecil."},
       {"id": "pelindung", "icon": "bedung", "name": "Pelindung tilam kalis air", "qty": "2", "why": "Tilam tak basah bila lampin bocor.", "link": "https://s.shopee.com.my/50ZgorqQD5", "product": "D'LARA Baby Waterproof Mattress Protector", "tip": "Pilih jenis yang dipasang macam cadar fitted supaya tak berkedut."},
       {"id": "cadar", "icon": "bedung", "name": "Cadar fitted", "qty": "3", "why": "Mudah ditukar dan tak tercabut.", "link": "https://s.shopee.com.my/5q8noIMjOD", "product": "Baby Cot Fitted Sheet", "tip": "Basuh cadar baru dulu sebelum dipakai."},
       {"id": "kelambu", "icon": "kotak", "name": "Kelambu katil baby", "qty": "1", "why": "Halang nyamuk tanpa perlu sapu ubat nyamuk pada kulit baby.", "link": "https://s.shopee.com.my/4LK01f5tOM", "product": "Baby Mosquito Net Kelambu Bayi Crib", "tip": "Pastikan kelambu ketat dan tak berjuntai ke dalam katil."},
       {"id": "sleepsack", "icon": "bedung", "name": "Sleeping bag baby", "qty": "1–2", "why": "Ganti selimut supaya muka baby tak tertutup.", "link": "https://s.shopee.com.my/2gBm2Upm7D", "product": "Insular Sleeveless Baby Sleeping Bag", "tip": "Sleeping bag menggantikan selimut. Tak perlu tambah selimut lain di atasnya."}
     ]},
-    {"no": 25, "slug": "swaddle-blanket", "title": "Baby Swaddle & Blanket Set", "intro": "Bedung dan selimut untuk minggu-minggu awal.", "items": [
+    {"no": 25, "slug": "swaddle-blanket", "title": "Baby Swaddle & Blanket Set", "intro": "Bedung dan selimut untuk minggu-minggu awal.", "fasa": "tidur", "items": [
       {"id": "muslin", "icon": "bedung", "name": "Bedung muslin", "qty": "3–4", "why": "Nipis dan sejuk, sesuai untuk cuaca panas.", "link": "", "tip": "Selepas beberapa kali basuh, kain muslin jadi lebih lembut.", "cari": "bedung muslin baby"},
       {"id": "swaddlezip", "icon": "bedung", "name": "Bedung zip / velcro", "qty": "2", "why": "Lebih mudah untuk ibu yang belum mahir membedung.", "link": "https://s.shopee.com.my/7Kxbb4BwTT", "product": "Baby Swaddle Zip Cotton", "tip": "Pastikan bahagian pinggul longgar supaya kaki baby boleh bengkok dan terbuka."},
       {"id": "flanel", "icon": "bedung", "name": "Bedung flanel", "qty": "2", "why": "Lebih tebal, sesuai untuk bilik aircond.", "link": "https://s.shopee.com.my/6fhunyEPWl", "product": "Newborn Fleece Swaddle Blanket", "tip": "Jangan bedung terlalu tebal dalam bilik yang tak beraircond. Baby boleh jadi terlalu panas."},
       {"id": "selimut", "icon": "bedung", "name": "Selimut nipis untuk stroller", "qty": "1", "why": "Untuk di luar rumah, bukan dalam katil.", "link": "https://s.shopee.com.my/BUR42ltYt", "product": "Baby Multipurpose Thick Aircond Blanket", "tip": "Alihkan selimut bila baby dipindahkan ke katil."},
       {"id": "transisi", "icon": "bedung", "name": "Sleeping bag peralihan", "qty": "1", "why": "Untuk baby yang dah berhenti dibedung.", "tip": "Berhenti membedung bila baby mula cuba berguling.", "link": "https://s.shopee.com.my/2LYvdt4RvN", "product": "Insular Sleeveless Baby Sleeping Bag"}
     ]},
-    {"no": 26, "slug": "baby-carrier-starter", "title": "Baby Carrier Starter Set", "intro": "Barang untuk dukung baby dengan selesa dan selamat.", "warn": "Pastikan muka baby sentiasa nampak dan dagu tak menekan dada.", "checked": "2026-10-09", "items": [
+    {"no": 26, "slug": "baby-carrier-starter", "title": "Baby Carrier Starter Set", "intro": "Barang untuk dukung baby dengan selesa dan selamat.", "warn": "Pastikan muka baby sentiasa nampak dan dagu tak menekan dada.", "checked": "2026-10-09", "fasa": "keluar", "items": [
       {"id": "carrier", "icon": "kotak", "name": "Baby carrier ergonomik", "qty": "1", "why": "Pilih yang sokong kaki baby dalam posisi M dan sesuai dari newborn.", "link": "https://s.shopee.com.my/6q1L0JaCjV", "product": "CUDDLEME Ultimo Ergonomic Baby Carrier", "tip": "Ingat TICKS: ketat, muka nampak, cukup dekat untuk dicium, dagu jauh dari dada, belakang disokong."},
       {"id": "sling", "icon": "bedung", "name": "Ring sling / kain wrap", "qty": "1", "why": "Sesuai untuk dukungan rapat newborn di rumah.", "link": "https://s.shopee.com.my/9KifywPoJC", "product": "CUBY Water Baby Sling Carrier", "tip": "Latih cara pakai di depan cermin sebelum dukung baby keluar rumah."},
       {"id": "droolpad", "icon": "bedung", "name": "Pelapik tali carrier (drool pad)", "qty": "2", "why": "Baby suka gigit tali carrier.", "link": "https://s.shopee.com.my/W7HSj4Jz3", "product": "3pcs Drool Pad Teething Pad", "tip": "Pasang terus di tali bahu, dan tanggalkan bila nak dibasuh."},
       {"id": "cover", "icon": "bedung", "name": "Penutup carrier hujan & matahari", "qty": "1", "why": "Lindungi baby masa keluar rumah.", "link": "https://s.shopee.com.my/2gBm2jsW0e", "product": "Mere et Moi Baby Carrier Cover", "tip": "Selak cover sekali-sekala untuk pastikan baby tak terlalu panas."},
       {"id": "kipas", "icon": "kotak", "name": "Kipas mini klip", "qty": "1", "why": "Cuaca panas, dan dukungan rapat buat ibu dan baby berpeluh.", "link": "https://s.shopee.com.my/9APFmhc1pO", "product": "24000mAh Rechargeable Clip Fan", "tip": "Halakan angin ke badan, bukan terus ke muka baby."}
     ]},
-    {"no": 27, "slug": "baby-travel-essentials", "title": "Baby Travel Essentials Set", "intro": "Barang untuk bermalam di luar, contohnya balik kampung atau bercuti.", "checked": "2026-10-09", "items": [
+    {"no": 27, "slug": "baby-travel-essentials", "title": "Baby Travel Essentials Set", "intro": "Barang untuk bermalam di luar, contohnya balik kampung atau bercuti.", "checked": "2026-10-09", "fasa": "keluar", "items": [
       {"id": "travelcot", "icon": "bulan", "name": "Katil lipat travel (playard)", "qty": "1", "why": "Tempat tidur yang selamat di rumah orang atau hotel.", "link": "https://s.shopee.com.my/1gJEqcKqfH", "product": "Mamakiddies UKS Portable Baby Travel Cot Playpen", "tip": "Cuba pasang di rumah dulu sebelum bertolak supaya tak terkial-kial di tempat orang."},
       {"id": "packingcube", "icon": "beg", "name": "Packing cube", "qty": "1 set", "why": "Asingkan baju baby ikut hari.", "link": "https://s.shopee.com.my/2BFVRv4ERW", "product": "6 Set Ultralight Compression Packing Cubes", "tip": "Satu cube untuk satu hari: baju, lampin dan tisu sekali."},
       {"id": "termos", "icon": "botol", "name": "Termos kecil", "qty": "1", "why": "Air panas untuk bancuh susu sepanjang perjalanan.", "link": "https://s.shopee.com.my/3qNjPTesOm", "product": "GIANXI 1L Thermos Hot Water Bottle", "tip": "Bawa sekali susu formula yang siap disukat supaya cepat bancuh."},
       {"id": "firstaid", "icon": "firstaid", "name": "Pouch first aid travel", "qty": "1", "why": "Termometer, plaster dan barang asas dalam satu pouch.", "link": "https://s.shopee.com.my/1B0ruNFwK", "product": "Portable Medicine Bag Travel First Aid Kit", "tip": "Masukkan ubat demam baby yang doktor pernah beri, dan semak tarikh luput."},
       {"id": "whitenoise", "icon": "bulan", "name": "White noise mudah alih", "qty": "1", "why": "Bantu baby tidur di tempat baru.", "link": "https://s.shopee.com.my/9fLWNNbmhe", "product": "Kiumo White Noise Baby Sleep Machine", "tip": "Bunyi yang sama seperti di rumah bantu baby rasa biasa di tempat baru."}
     ]},
-    {"no": 28, "slug": "car-seat-stroller", "title": "Baby Car Seat & Stroller Travel Set", "intro": "Car seat dan stroller untuk perjalanan dengan kereta.", "checked": "2026-10-09", "items": [
+    {"no": 28, "slug": "car-seat-stroller", "title": "Baby Car Seat & Stroller Travel Set", "intro": "Car seat dan stroller untuk perjalanan dengan kereta.", "checked": "2026-10-09", "fasa": "keluar", "items": [
       {"id": "carseat", "icon": "stroller", "name": "Car seat baby (menghadap belakang)", "qty": "1", "why": "Car seat kanak-kanak wajib di Malaysia sejak 2020. Newborn dipasang menghadap belakang.", "tip": "Pilih yang ada label ECE R44 atau R129 (i-Size).", "link": "https://s.shopee.com.my/AAHmyeGgMF", "product": "ECE Certified Baby Car Seat Newborn to 13kg"},
       {"id": "stroller", "icon": "stroller", "name": "Stroller", "qty": "1", "why": "Senang bawa baby keluar dari kereta ke tempat tujuan.", "link": "https://s.shopee.com.my/1B0rzTgyz", "product": "Chicco Trolleyme Lightweight Stroller", "tip": "Ukur but kereta sebelum beli, dan cuba lipat dengan sebelah tangan."},
       {"id": "protector", "icon": "kotak", "name": "Pelindung kusyen kereta", "qty": "1", "why": "Lindungi kusyen kereta daripada kesan car seat.", "link": "https://s.shopee.com.my/1B0s2ri4b", "product": "YOGIC Car Baby Seat Protector", "tip": "Semak manual car seat dulu. Ada car seat yang tak galakkan pelapik tambahan."},
       {"id": "cermin", "icon": "kotak", "name": "Cermin kereta untuk baby", "qty": "1", "why": "Tengok baby yang menghadap belakang dari tempat duduk depan.", "link": "https://s.shopee.com.my/4B0Zpit2hh", "product": "Baby Safety Car Seat Mirror", "tip": "Ikat dengan ketat pada headrest belakang supaya tak tercabut masa brek mengejut."},
       {"id": "sunshade", "icon": "kotak", "name": "Penghadang matahari tingkap", "qty": "2", "why": "Kurangkan panas matahari terus ke arah baby.", "link": "https://s.shopee.com.my/W7HT0FjyW", "product": "Car Window Curtains Retractable Sunshade", "tip": "Pilih jenis yang tak menghalang pandangan pemandu."}
     ]},
-    {"no": 29, "slug": "babyproofing-starter", "title": "Babyproofing Starter Kit", "intro": "Barang keselamatan rumah sebelum baby mula merangkak.", "note": "Mula pasang sebelum baby pandai merangkak, sekitar 6 bulan.", "checked": "2026-10-09", "items": [
+    {"no": 29, "slug": "babyproofing-starter", "title": "Babyproofing Starter Kit", "intro": "Barang keselamatan rumah sebelum baby mula merangkak.", "note": "Mula pasang sebelum baby pandai merangkak, sekitar 6 bulan.", "checked": "2026-10-09", "fasa": "tidur", "items": [
       {"id": "soket", "icon": "kotak", "name": "Penutup soket elektrik", "qty": "1 pek", "why": "Elak jari kecil masuk ke dalam soket.", "link": "https://s.shopee.com.my/8fSzC463Xl", "product": "UK Power Socket Protective Cover", "tip": "Pilih penutup yang sukar ditarik keluar oleh anak kecil."},
       {"id": "kunci", "icon": "kotak", "name": "Kunci kabinet & laci", "qty": "1 pek", "why": "Simpan bahan cucian dan barang tajam jauh dari capaian anak.", "link": "https://s.shopee.com.my/80DIOrKuMU", "product": "Wonderbaby Baby Safety Lock Cabinet & Drawer", "tip": "Mula dengan kabinet bawah sinki dan laci pisau."},
       {"id": "bucu", "icon": "kotak", "name": "Pelindung bucu meja", "qty": "1 pek", "why": "Kurangkan kecederaan bila anak terhantuk.", "link": "https://s.shopee.com.my/4qGGd3g2vm", "product": "Soft Baby Safe Corner Protector", "tip": "Pasang pada meja kopi dan bucu katil yang sama paras dengan kepala anak."},
       {"id": "pagar", "icon": "rak", "name": "Pagar keselamatan tangga / pintu", "qty": "1", "why": "Halang anak ke tangga atau dapur.", "link": "https://s.shopee.com.my/9fLWNxVM1S", "product": "Auto Lock Baby Safety Gate", "tip": "Di bahagian atas tangga, guna pagar yang diskru ke dinding, bukan jenis tekan."},
       {"id": "antitip", "icon": "kotak", "name": "Tali pengikat perabot (anti-tip)", "qty": "1 set", "why": "Ikat almari dan rak TV ke dinding supaya tak tumbang bila anak memanjat.", "link": "https://s.shopee.com.my/2qVCFQ4S1w", "product": "TMi Baby Safety Anti-Tip Furniture Straps", "tip": "Skru pada dinding dengan skru yang sesuai untuk jenis dinding rumah."}
     ]},
-    {"no": 30, "slug": "baby-health-first-aid", "title": "Baby Health & First Aid Kit", "intro": "Barang kesihatan asas yang patut ada di rumah.", "items": [
+    {"no": 30, "slug": "baby-health-first-aid", "title": "Baby Health & First Aid Kit", "intro": "Barang kesihatan asas yang patut ada di rumah.", "fasa": "harian", "items": [
       {"id": "termometer", "icon": "termometer", "name": "Termometer digital", "qty": "1", "why": "Periksa suhu bila badan baby rasa panas.", "warn": "Baby bawah 3 bulan dengan suhu 38°C ke atas perlu terus dibawa jumpa doktor.", "link": "", "tip": "Simpan bersama buku rekod kesihatan baby supaya senang dicari.", "cari": "termometer digital baby"},
       {"id": "aspirator", "icon": "firstaid", "name": "Penyedut hingus", "qty": "1", "why": "Bersihkan hidung tersumbat supaya baby senang bernafas dan menyusu.", "link": "https://s.shopee.com.my/60SE0JbtNJ", "product": "Bunny Goody Baby Nasal Aspirator", "tip": "Basuh dan keringkan selepas setiap kali guna."},
       {"id": "saline", "icon": "botol", "name": "Titisan hidung saline baby", "qty": "1", "why": "Lembutkan hingus sebelum disedut.", "link": "https://s.shopee.com.my/AAHmyulGzf", "product": "Flo Baby Saline Nasal Drops", "tip": "Saline cuma air garam untuk lembutkan hingus, bukan ubat."},
       {"id": "dropper", "icon": "botol", "name": "Picagari / dropper ubat", "qty": "1", "why": "Beri ubat cecair dengan sukatan yang tepat.", "tip": "Ikut dos yang ditetapkan oleh doktor atau ahli farmasi.", "link": "https://s.shopee.com.my/2LYveXMOCS", "product": "Picagari Ubat Bayi Medicine Feeder"},
       {"id": "firstaid", "icon": "firstaid", "name": "Pouch first aid (plaster, kasa, gunting)", "qty": "1", "why": "Semua barang luka kecil dalam satu tempat.", "link": "https://s.shopee.com.my/7faS00KT4t", "product": "Portable Medicine Bag Travel First Aid Kit", "tip": "Simpan nombor klinik dan hospital terdekat dalam pouch yang sama."}
     ]},
-    {"no": 31, "slug": "teething-relief", "title": "Baby Teething Relief Kit", "intro": "Barang yang bantu baby lebih selesa masa tumbuh gigi.", "warn": "Elak gel kebas yang mengandungi benzocaine dan rantai amber untuk baby.", "checked": "2026-10-09", "items": [
+    {"no": 31, "slug": "teething-relief", "title": "Baby Teething Relief Kit", "intro": "Barang yang bantu baby lebih selesa masa tumbuh gigi.", "warn": "Elak gel kebas yang mengandungi benzocaine dan rantai amber untuk baby.", "checked": "2026-10-09", "fasa": "harian", "items": [
       {"id": "teether", "icon": "gigi", "name": "Teether silikon", "qty": "2–3", "why": "Baby boleh gigit untuk lega gusi.", "tip": "Sejukkan dalam peti sejuk, bukan freezer.", "link": "https://s.shopee.com.my/7VH1o4Auym", "product": "BN Silicone Teether BPA Free"},
       {"id": "bib", "icon": "baju", "name": "Bib bandana kalis air", "qty": "4–6", "why": "Air liur banyak masa tumbuh gigi.", "link": "https://s.shopee.com.my/4B0ZoaEEIT", "product": "Cotton Triangle Bandana Bib", "tip": "Tukar bib bila dah basah supaya kulit dagu dan leher tak merah."},
       {"id": "berusjari", "icon": "gigi", "name": "Berus jari silikon", "qty": "1", "why": "Urut gusi dan bersihkan gigi pertama.", "link": "https://s.shopee.com.my/2qVCFVbhKZ", "product": "Bevavar Baby Silicone Finger Toothbrush", "tip": "Lap gusi sekali sehari walaupun gigi belum keluar, supaya baby biasa."},
       {"id": "mitten", "icon": "sarung", "name": "Sarung tangan teething", "qty": "1", "why": "Untuk baby yang suka gigit tangan sendiri.", "link": "https://s.shopee.com.my/3Vkt2kgJm7", "product": "Nuby Koala Teething Mitten", "tip": "Basuh setiap hari sebab sentiasa basah dengan air liur."},
       {"id": "feeder", "icon": "mangkuk", "name": "Teether feeder (mesh feeder)", "qty": "1", "why": "Isi buah sejuk untuk baby yang dah mula makan, 6 bulan ke atas.", "link": "https://s.shopee.com.my/70KlD8m9FX", "product": "Baby Food Fruit Feeder", "tip": "Mula dengan buah lembut yang dah disejukkan, dan sentiasa awasi baby masa guna."}
     ]},
-    {"no": 32, "slug": "weaning-starter", "title": "Baby Weaning Starter Kit", "intro": "Barang untuk mula beri makanan pejal, sekitar umur 6 bulan.", "checked": "2026-10-09", "items": [
+    {"no": 32, "slug": "weaning-starter", "title": "Baby Weaning Starter Kit", "intro": "Barang untuk mula beri makanan pejal, sekitar umur 6 bulan.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "highchair", "icon": "kotak", "name": "Kerusi makan baby (high chair)", "qty": "1", "why": "Baby duduk tegak dan selamat masa makan.", "link": "https://s.shopee.com.my/LnrGx5eLu", "product": "Baby High Chair Dining Chair", "tip": "Ikat tali pinggang setiap kali, dan pastikan kaki baby ada tempat berpijak."},
       {"id": "mangkuk", "icon": "mangkuk", "name": "Mangkuk sedut (suction bowl)", "qty": "2", "why": "Mangkuk melekat di meja dan tak mudah terbalik.", "link": "https://s.shopee.com.my/1gJErQeFT5", "product": "Baby Suction Bowl With Spoon & Lid", "tip": "Lap meja dan dasar mangkuk sampai kering supaya sedutan lebih kuat."},
       {"id": "sudu", "icon": "mangkuk", "name": "Sudu silikon lembut", "qty": "2–3", "why": "Lembut pada gusi baby.", "link": "https://s.shopee.com.my/4VdQEfKCNI", "product": "2pcs Soft Silicone Baby Feeding Spoon", "tip": "Biar baby pegang sudu sendiri juga. Bersepah itu sebahagian daripada belajar makan."},
@@ -491,119 +555,119 @@
       {"id": "cawan", "icon": "botol", "name": "Cawan straw / cawan latihan", "qty": "1", "why": "Mula latih baby minum air bersama makanan pejal.", "link": "https://s.shopee.com.my/1VzofAd3Kn", "product": "Autumnz PPSU Weighted Straw Cup", "tip": "Mula dengan sedikit air masak bersama makanan. Tak perlu banyak."},
       {"id": "splatmat", "icon": "bedung", "name": "Alas lantai kalis air", "qty": "1", "why": "Senang bersihkan lantai selepas makan.", "link": "https://s.shopee.com.my/113Y4GoFFv", "product": "Highchair Splash Mat Non-Slip", "tip": "Boleh juga dibentang di bawah kerusi masa baby main air atau cat."}
     ]},
-    {"no": 33, "slug": "mpasi", "title": "Complementary Feeding (MPASI) Set", "intro": "Barang untuk sediakan MPASI (makanan pendamping) di rumah.", "checked": "2026-10-09", "items": [
+    {"no": 33, "slug": "mpasi", "title": "Complementary Feeding (MPASI) Set", "intro": "Barang untuk sediakan MPASI (makanan pendamping) di rumah.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "slowcooker", "icon": "mangkuk", "name": "Slow cooker mini", "qty": "1", "why": "Masak bubur dan sup sambil buat kerja lain.", "link": "https://s.shopee.com.my/6VOUcPO6Dt", "product": "BEAR 0.8L Mini Slow Cooker", "tip": "Masak waktu malam, bubur siap pagi. Sejukkan cepat sebelum masuk peti sejuk."},
       {"id": "freezertray", "icon": "kotak", "name": "Bekas beku makanan baby bertutup", "qty": "1–2", "why": "Bekukan bubur dalam bahagian kecil untuk beberapa hari.", "link": "https://s.shopee.com.my/5VVxQaaZpC", "product": "8 Grid Silicone Baby Food Tray", "tip": "Tulis tarikh, dan habiskan makanan beku dalam masa sebulan."},
       {"id": "masher", "icon": "mangkuk", "name": "Penumbuk makanan (food masher)", "qty": "1", "why": "Lecek makanan ikut tekstur yang sesuai dengan umur baby.", "link": "https://s.shopee.com.my/6L54Q8fWbO", "product": "Baby Food Grinding Bowl Masher", "tip": "Mula dengan tekstur licin, kemudian lecek lebih kasar sedikit demi sedikit ikut umur baby."},
       {"id": "set", "icon": "mangkuk", "name": "Set mangkuk & sudu baby", "qty": "1 set", "why": "Saiz kecil yang sesuai untuk satu hidangan baby.", "link": "https://s.shopee.com.my/3g4JF65cM2", "product": "Lemonu 8pcs Silicone Feeding Set", "tip": "Pilih yang selamat untuk microwave dan mudah dibasuh."},
       {"id": "termosmakanan", "icon": "botol", "name": "Termos makanan", "qty": "1", "why": "Bawa makanan baby kekal panas bila keluar rumah.", "link": "https://s.shopee.com.my/AKbDBVXnb8", "product": "Tyeso 280ml Thermos Food Jar", "tip": "Isi air panas dalam termos 5 minit dulu, buang, baru isi makanan supaya lebih lama panas."}
     ]},
-    {"no": 34, "slug": "baby-food-prep", "title": "Baby Food Preparation Kit", "intro": "Peralatan dapur untuk sediakan makanan baby sendiri.", "items": [
+    {"no": 34, "slug": "baby-food-prep", "title": "Baby Food Preparation Kit", "intro": "Peralatan dapur untuk sediakan makanan baby sendiri.", "fasa": "makan", "items": [
       {"id": "steamerblender", "icon": "mangkuk", "name": "Steamer blender baby 2-dalam-1", "qty": "1", "why": "Kukus dan kisar dalam satu mesin.", "link": "https://s.shopee.com.my/6L54QAwFNc", "product": "4in1 Baby Food Processor Steamer", "tip": "Kukus sayur sampai betul-betul lembut sebelum kisar supaya teksturnya licin."},
       {"id": "chopper", "icon": "mangkuk", "name": "Blender kecil / chopper", "qty": "1", "why": "Kisar kuantiti kecil dengan cepat.", "link": "", "tip": "Pilih yang mangkuknya boleh ditanggalkan supaya senang dibasuh.", "cari": "mini chopper blender baby food"},
       {"id": "penapis", "icon": "mangkuk", "name": "Penapis halus", "qty": "1", "why": "Dapatkan tekstur yang licin untuk peringkat awal.", "link": "", "tip": "Tapis bubur peringkat awal untuk buang ketulan dan kulit sayur.", "cari": "penapis halus stainless"},
       {"id": "papan", "icon": "gunting", "name": "Papan pemotong & pisau khas baby", "qty": "1 set", "why": "Asingkan peralatan makanan baby daripada daging mentah.", "link": "", "tip": "Guna warna lain untuk makanan baby supaya tak tertukar dengan papan daging mentah.", "cari": "papan pemotong kecil set warna"},
       {"id": "kaca", "icon": "kotak", "name": "Bekas kaca simpanan makanan", "qty": "1 set", "why": "Selamat untuk peti sejuk dan senang dipanaskan semula.", "link": "", "tip": "Biar makanan sejuk sedikit dulu sebelum ditutup dan masuk peti sejuk.", "cari": "bekas kaca makanan bertutup kecil"}
     ]},
-    {"no": 35, "slug": "postpartum-hygiene", "title": "Postpartum Hygiene Kit", "intro": "Barang kebersihan ibu selepas bersalin.", "items": [
+    {"no": 35, "slug": "postpartum-hygiene", "title": "Postpartum Hygiene Kit", "intro": "Barang kebersihan ibu selepas bersalin.", "fasa": "pantang", "items": [
       {"id": "peribottle", "icon": "botol", "name": "Botol semburan perineum (peri bottle)", "qty": "1", "why": "Bersihkan kawasan sensitif dengan lembut selepas buang air.", "link": "https://s.shopee.com.my/4qGGbCm9Ay", "product": "600ml Foldable Peri Bottle", "tip": "Bawa sekali bila keluar rumah pada minggu-minggu awal."},
       {"id": "pad", "icon": "kotak", "name": "Pad bersalin", "qty": "2 pek", "why": "Lebih panjang dan lebih menyerap untuk darah nifas.", "link": "", "tip": "Simpan sepeket dalam bilik air supaya senang dicapai.", "cari": "pad bersalin maternity pad"},
       {"id": "seluar", "icon": "kotak", "name": "Seluar dalam pakai buang", "qty": "1 pek", "why": "Jimat masa basuh pada minggu-minggu awal.", "link": "", "tip": "Pilih yang pinggang tinggi supaya pad tak beralih.", "cari": "seluar dalam pakai buang bersalin"},
       {"id": "tisu", "icon": "tisu", "name": "Tisu basah lembut tanpa pewangi", "qty": "1–2 pek", "why": "Lebih selesa daripada tisu kering.", "link": "", "tip": "Lap dari depan ke belakang, dan tepuk perlahan. Jangan gosok.", "cari": "tisu basah sensitif tanpa pewangi"},
       {"id": "begbuang", "icon": "beg", "name": "Beg pembuang pad", "qty": "1 pek", "why": "Buang pad dengan kemas, terutama di rumah orang.", "link": "", "tip": "Simpan beberapa dalam beg tangan untuk guna di tandas awam atau rumah orang.", "cari": "sanitary disposal bag"}
     ]},
-    {"no": 36, "slug": "postpartum-compression", "title": "Postpartum Compression & Support Set", "intro": "Barang sokongan badan ibu selepas bersalin.", "note": "Ibu yang bersalin secara pembedahan, tanya doktor bila boleh mula pakai.", "items": [
+    {"no": 36, "slug": "postpartum-compression", "title": "Postpartum Compression & Support Set", "intro": "Barang sokongan badan ibu selepas bersalin.", "note": "Ibu yang bersalin secara pembedahan, tanya doktor bila boleh mula pakai.", "fasa": "pantang", "items": [
       {"id": "binder", "icon": "kotak", "name": "Binder / bengkung perut", "qty": "1", "why": "Sokong otot perut masa bergerak.", "link": "https://s.shopee.com.my/20w5Dx3RE8", "product": "Mommy Tummy Belt Abdominal Binder", "tip": "Pakai cukup selesa untuk bernafas dan duduk. Kalau rasa sakit atau kebas, longgarkan."},
       {"id": "korset", "icon": "bajuibu", "name": "Seluar korset pinggang tinggi", "qty": "1–2", "why": "Sokongan lembut yang boleh dipakai dalam baju.", "link": "", "tip": "Pilih saiz yang selesa untuk duduk lama, bukan yang paling ketat.", "cari": "seluar korset pinggang tinggi postpartum"},
       {"id": "pelvic", "icon": "kotak", "name": "Belt sokongan pinggul", "qty": "1", "why": "Sokong pinggul dan pelvis yang masih longgar selepas bersalin.", "link": "", "tip": "Kalau sakit pinggul berterusan, minta nasihat doktor atau ahli fisioterapi.", "cari": "pelvic support belt postpartum"},
       {"id": "stoking", "icon": "sarung", "name": "Stoking mampatan", "qty": "1–2 pasang", "why": "Bantu kurangkan kaki bengkak.", "link": "", "tip": "Pakai waktu pagi sebelum kaki mula bengkak. Kalau sebelah kaki sahaja bengkak dan sakit, jumpa doktor segera.", "cari": "stoking mampatan compression socks"},
       {"id": "brasukan", "icon": "bajuibu", "name": "Bra sukan menyusu", "qty": "1–2", "why": "Sokongan lebih masa mula bersenam ringan.", "link": "", "tip": "Tunggu doktor benarkan bersenam, biasanya selepas pemeriksaan 6 minggu.", "cari": "sports bra menyusu nursing"}
     ]},
-    {"no": 37, "slug": "nursing-wear-starter", "title": "Nursing Wear Starter Set", "intro": "Pakaian yang senang untuk menyusu, di rumah dan di luar.", "items": [
+    {"no": 37, "slug": "nursing-wear-starter", "title": "Nursing Wear Starter Set", "intro": "Pakaian yang senang untuk menyusu, di rumah dan di luar.", "fasa": "menyusu", "items": [
       {"id": "bra", "icon": "bajuibu", "name": "Bra menyusu", "qty": "3", "why": "Cangkuk boleh dibuka dengan sebelah tangan.", "link": "https://s.shopee.com.my/8Kq8lptkqi", "product": "Women Nursing Bra Maternity Breastfeeding Bra", "tip": "Beli satu dulu dan cuba beberapa hari, kemudian baru tambah dalam saiz yang selesa."},
       {"id": "baju", "icon": "bajuibu", "name": "Baju menyusu berzip / berbutang", "qty": "3–4", "why": "Menyusu tanpa perlu buka seluruh baju.", "link": "", "tip": "Pilih zip tersembunyi supaya baju masih sesuai dipakai ke tempat kerja.", "cari": "baju menyusu zip tersembunyi"},
       {"id": "jubah", "icon": "bajuibu", "name": "Jubah / dress menyusu", "qty": "2", "why": "Selesa untuk keluar dan ada bukaan zip untuk menyusu.", "link": "", "tip": "Zip di kedua-dua belah lebih senang daripada zip tengah untuk menyusu sebelah-sebelah.", "cari": "jubah menyusu zip"},
       {"id": "tudung", "icon": "bajuibu", "name": "Tudung sarung labuh", "qty": "1–2", "why": "Labuh di depan, jadi boleh tutup masa menyusu.", "link": "", "tip": "Pilih kain yang tak terlalu tebal supaya baby tak panas di bawahnya.", "cari": "tudung sarung labuh menyusu"},
       {"id": "pad", "icon": "kotak", "name": "Nursing pad boleh basuh", "qty": "1 set", "why": "Jimat dan lembut pada kulit.", "link": "", "tip": "Sediakan 3 pasang supaya ada ganti masa basuh.", "cari": "nursing pad boleh basuh"}
     ]},
-    {"no": 38, "slug": "maternity-wear", "title": "Maternity Wear Essentials Set", "intro": "Pakaian asas untuk ibu mengandung yang masih boleh dipakai selepas bersalin.", "items": [
+    {"no": 38, "slug": "maternity-wear", "title": "Maternity Wear Essentials Set", "intro": "Pakaian asas untuk ibu mengandung yang masih boleh dipakai selepas bersalin.", "fasa": "bersalin", "items": [
       {"id": "seluar", "icon": "bajuibu", "name": "Seluar mengandung pinggang getah", "qty": "2", "why": "Getah boleh dilaras ikut saiz perut.", "link": "", "tip": "Pilih jenis panel perut yang lembut, sesuai juga untuk ke tempat kerja.", "cari": "seluar mengandung pinggang getah"},
       {"id": "dress", "icon": "bajuibu", "name": "Dress / jubah mengandung dengan zip menyusu", "qty": "2", "why": "Boleh terus dipakai selepas bersalin.", "link": "", "tip": "Pastikan zip menyusu boleh dibuka dengan sebelah tangan.", "cari": "dress mengandung zip menyusu"},
       {"id": "seluardalam", "icon": "kotak", "name": "Seluar dalam mengandung", "qty": "4–6", "why": "Duduk di bawah perut dan tak menekan.", "link": "", "tip": "Kain cotton lebih selesa dan kurang berpeluh.", "cari": "seluar dalam mengandung cotton"},
       {"id": "bra", "icon": "bajuibu", "name": "Bra mengandung / menyusu", "qty": "2", "why": "Saiz dada berubah sepanjang mengandung.", "link": "https://s.shopee.com.my/80DINE5GbC", "product": "Women Nursing Bra Maternity Breastfeeding Bra", "tip": "Pilih bra tanpa dawai yang ada banyak cangkuk supaya saiz boleh dilaras."},
       {"id": "kasut", "icon": "kotak", "name": "Kasut slip-on selesa", "qty": "1", "why": "Kaki boleh bengkak dan susah menunduk pada trimester ketiga.", "link": "", "tip": "Beli setengah saiz lebih besar kalau kaki mula bengkak pada trimester ketiga.", "cari": "kasut slip on wanita selesa"}
     ]},
-    {"no": 39, "slug": "pumping-at-work", "title": "Breastfeeding & Pumping at Work Kit", "intro": "Barang untuk ibu yang pam susu di tempat kerja.", "items": [
+    {"no": 39, "slug": "pumping-at-work", "title": "Breastfeeding & Pumping at Work Kit", "intro": "Barang untuk ibu yang pam susu di tempat kerja.", "fasa": "menyusu", "items": [
       {"id": "pam", "icon": "pam", "name": "Pam susu wearable / mudah alih", "qty": "1", "why": "Boleh pam di meja atau di bilik menyusu tanpa wayar.", "link": "https://s.shopee.com.my/7ptsB9UDeG", "product": "Empreus Smart IOT 2.0 Wearable Breast Pump", "tip": "Cuba pam ikut jadual yang hampir sama dengan waktu baby menyusu."},
       {"id": "cooler", "icon": "beg", "name": "Cooler bag + ice pack", "qty": "1", "why": "Simpan susu sejuk sehingga sampai rumah.", "link": "https://s.shopee.com.my/2qVCE18agd", "product": "GabaG Cooler Bag Thermal Handbag", "tip": "Kalau pejabat ada peti sejuk, simpan susu di situ dan guna cooler bag untuk perjalanan balik."},
       {"id": "begsusu", "icon": "kotak", "name": "Beg simpanan susu", "qty": "1 kotak", "why": "Ringan dan jimat ruang dalam cooler bag.", "link": "https://s.shopee.com.my/8fSzAWj6t8", "product": "30pcs Breastmilk Storage Bag Double Lock", "tip": "Selitkan beberapa beg lebih dalam beg kerja, sekiranya hasil pam lebih banyak."},
       {"id": "apron", "icon": "bedung", "name": "Apron / penutup pam", "qty": "1", "why": "Untuk pam di bilik kongsi dengan lebih selesa.", "link": "", "tip": "Pilih kain nipis yang ada tali leher boleh dilaras.", "cari": "apron pam susu nursing cover"},
       {"id": "tisupam", "icon": "tisu", "name": "Tisu basah pembersih pam", "qty": "1 pek", "why": "Lap bahagian pam bila tiada sinki berdekatan.", "link": "", "tip": "Ini untuk lap sementara. Basuh semua bahagian pam dengan air sabun bila sampai rumah.", "cari": "breast pump wipes"}
     ]},
-    {"no": 40, "slug": "working-mom-essentials", "title": "Working Mom Essentials Kit", "intro": "Barang yang memudahkan hari kerja ibu yang baru kembali bekerja.", "items": [
+    {"no": 40, "slug": "working-mom-essentials", "title": "Working Mom Essentials Kit", "intro": "Barang yang memudahkan hari kerja ibu yang baru kembali bekerja.", "fasa": "kerja", "items": [
       {"id": "beg", "icon": "beg", "name": "Beg kerja besar yang muat pam", "qty": "1", "why": "Satu beg untuk laptop, pam dan cooler bag.", "link": "", "tip": "Pilih yang ada petak berasingan supaya pam dan cooler bag tak bercampur dengan laptop.", "cari": "beg kerja wanita besar muat laptop"},
       {"id": "tumbler", "icon": "botol", "name": "Tumbler / botol air", "qty": "1", "why": "Senang minum air sepanjang hari kerja.", "link": "", "tip": "Pilih yang ada penanda masa atau ml supaya senang kira berapa banyak dah minum.", "cari": "tumbler air penanda masa"},
       {"id": "lunchbox", "icon": "mangkuk", "name": "Bekas makanan berpenebat", "qty": "1", "why": "Bawa bekal sendiri dan jimat masa rehat untuk pam.", "link": "", "tip": "Sediakan bekal malam sebelumnya supaya pagi tak kelam-kabut.", "cari": "lunch box berpenebat"},
       {"id": "planner", "icon": "kotak", "name": "Planner mingguan", "qty": "1", "why": "Catat jadual pam, hantar pengasuh dan temujanji klinik.", "link": "", "tip": "Tulis jadual pam di satu muka, dan temujanji klinik baby di muka lain.", "cari": "weekly planner A5"},
       {"id": "powerbank", "icon": "kotak", "name": "Powerbank", "qty": "1", "why": "Untuk telefon dan pam yang boleh dicas.", "link": "https://s.shopee.com.my/6VOUa8wIje", "product": "Baseus FC11 10000mAh Power Bank", "tip": "Cas penuh setiap malam bersama pam."}
     ]},
-    {"no": 41, "slug": "daycare-prep", "title": "Daycare Preparation Kit", "intro": "Barang untuk persediaan hantar baby ke pengasuh atau taska.", "items": [
+    {"no": 41, "slug": "daycare-prep", "title": "Daycare Preparation Kit", "intro": "Barang untuk persediaan hantar baby ke pengasuh atau taska.", "fasa": "kerja", "items": [
       {"id": "label", "icon": "kotak", "name": "Label nama kalis air", "qty": "1 pek", "why": "Lekat pada botol, baju dan barang supaya tak tertukar.", "link": "", "tip": "Lekat juga pada tutup botol, bukan badan botol sahaja, sebab tutup selalu tertukar.", "cari": "sticker label nama kalis air"},
       {"id": "beg", "icon": "beg", "name": "Beg pengasuh", "qty": "1", "why": "Satu beg khas untuk barang harian baby.", "link": "", "tip": "Selitkan senarai barang dalam beg supaya pengasuh tahu apa yang ada.", "cari": "beg baby pengasuh"},
       {"id": "botol", "icon": "botol", "name": "Botol susu tambahan", "qty": "3–4", "why": "Satu set di pengasuh dan satu set di rumah.", "link": "https://s.shopee.com.my/30ocQPIaLh", "product": "iBebe MooMoo 2.0 Ultra Soft Bottle", "tip": "Labelkan setiap botol dengan nama dan jumlah susu dalam ml."},
       {"id": "cooler", "icon": "beg", "name": "Cooler bag susu perah", "qty": "1", "why": "Hantar susu perah dalam keadaan sejuk.", "link": "https://s.shopee.com.my/3g4JDYJAPZ", "product": "GabaG Cooler Bag Thermal Handbag", "tip": "Bagitahu pengasuh cara cairkan dan panaskan susu perah dengan betul."},
       {"id": "pouch", "icon": "beg", "name": "Pouch baju ganti", "qty": "3", "why": "Asingkan set baju ganti untuk setiap hari.", "link": "", "tip": "Satu pouch untuk satu set: baju, seluar dan stoking.", "cari": "pouch zip baju baby"}
     ]},
-    {"no": 42, "slug": "ebm-storage", "title": "Expressed Breast Milk (EBM) Storage Set", "intro": "Barang untuk simpan stok susu perah dengan teratur.", "note": "Susu perah tahan sekitar 4 hari dalam peti sejuk dan sebaiknya diguna dalam 6 bulan dari freezer.", "items": [
+    {"no": 42, "slug": "ebm-storage", "title": "Expressed Breast Milk (EBM) Storage Set", "intro": "Barang untuk simpan stok susu perah dengan teratur.", "note": "Susu perah tahan sekitar 4 hari dalam peti sejuk dan sebaiknya diguna dalam 6 bulan dari freezer.", "fasa": "menyusu", "items": [
       {"id": "begsusu", "icon": "kotak", "name": "Beg simpanan susu", "qty": "2 kotak", "why": "Beku secara rata dan jimat ruang freezer.", "link": "https://s.shopee.com.my/4LK00ZBMWL", "product": "30pcs Breastmilk Storage Bag Double Lock", "tip": "Bekukan secara rata dulu, kemudian susun tegak macam fail."},
       {"id": "botol", "icon": "botol", "name": "Botol simpanan susu bertutup", "qty": "4", "why": "Untuk susu yang akan diguna dalam masa terdekat.", "link": "https://s.shopee.com.my/5VVxOjpxS0", "product": "Yootree Glass Breast Milk Storage Bottle", "tip": "Guna botol untuk susu yang akan diberi dalam beberapa hari."},
       {"id": "organizer", "icon": "rak", "name": "Kotak penyusun freezer", "qty": "1", "why": "Susun ikut tarikh supaya susu lama diguna dulu.", "link": "https://s.shopee.com.my/2gBm1kGjeq", "product": "Babymommy Breast Milk Freezer Organizer", "tip": "Susun ikut tarikh, yang paling lama di depan."},
       {"id": "pen", "icon": "kotak", "name": "Pen penanda kalis air", "qty": "1", "why": "Tulis tarikh dan masa pada setiap beg.", "link": "https://s.shopee.com.my/3B82cXaUFv", "product": "Quick-Dry Permanent Waterproof Marker", "tip": "Tulis jumlah ml juga, supaya senang ambil ikut keperluan."},
       {"id": "corong", "icon": "botol", "name": "Corong tuang susu", "qty": "1", "why": "Elak tumpah masa tuang susu dari botol ke beg.", "link": "", "tip": "Pilih corong silikon kecil yang muat dalam mulut beg susu.", "cari": "breastmilk funnel corong susu"}
     ]},
-    {"no": 43, "slug": "milk-cooler-bag", "title": "Breast Milk Cooler Bag Set", "intro": "Barang untuk bawa susu perah dalam keadaan sejuk.", "items": [
+    {"no": 43, "slug": "milk-cooler-bag", "title": "Breast Milk Cooler Bag Set", "intro": "Barang untuk bawa susu perah dalam keadaan sejuk.", "fasa": "menyusu", "items": [
       {"id": "cooler", "icon": "beg", "name": "Cooler bag susu berpenebat", "qty": "1", "why": "Kekal sejuk sepanjang perjalanan pulang.", "link": "https://s.shopee.com.my/1gJEpsYge9", "product": "GabaG Cooler Bag Thermal Handbag", "tip": "Pilih saiz yang muat 4 botol dan 2 ice pack sekali."},
       {"id": "icepack", "icon": "kotak", "name": "Ice pack", "qty": "2–3", "why": "Letak di atas dan bawah botol supaya sejuk sekata.", "link": "https://s.shopee.com.my/1BMyElats2", "product": "LYCOTTE Reusable Ice Pack", "tip": "Bekukan semalaman supaya betul-betul keras sebelum guna."},
       {"id": "botol", "icon": "botol", "name": "Botol simpanan susu", "qty": "4", "why": "Muat dalam cooler bag dengan kemas.", "link": "https://s.shopee.com.my/4qGGbW5cu8", "product": "Yootree Glass Breast Milk Storage Bottle", "tip": "Tutup ketat dan letak tegak supaya tak bocor."},
       {"id": "begsusu", "icon": "kotak", "name": "Beg simpanan susu", "qty": "1 kotak", "why": "Ringan dan mudah disusun.", "link": "https://s.shopee.com.my/9APFlS2Rtx", "product": "30pcs Breastmilk Storage Bag Double Lock", "tip": "Masukkan dalam plastik zip dulu sebelum letak dalam cooler bag, sekiranya bocor."},
       {"id": "icebox", "icon": "kotak", "name": "Ice box kecil", "qty": "1", "why": "Untuk perjalanan jauh atau balik kampung.", "link": "", "tip": "Untuk perjalanan jauh, tambah ice pack dan jangan selalu buka penutup.", "cari": "ice box kecil cooler box"}
     ]},
-    {"no": 44, "slug": "baby-laundry", "title": "Baby Laundry Essentials Set", "intro": "Barang untuk basuh dan simpan baju baby.", "items": [
+    {"no": 44, "slug": "baby-laundry", "title": "Baby Laundry Essentials Set", "intro": "Barang untuk basuh dan simpan baju baby.", "fasa": "harian", "items": [
       {"id": "sabun", "icon": "sabun", "name": "Sabun dobi baby tanpa pewangi", "qty": "1", "why": "Lembut pada kulit baby yang sensitif.", "link": "", "tip": "Basuh semua baju dan kain baru dengan sabun ini sebelum dipakai.", "cari": "sabun dobi baby"},
       {"id": "bakul", "icon": "rak", "name": "Bakul baju kotor baby", "qty": "1", "why": "Asingkan baju baby daripada baju orang dewasa.", "link": "", "tip": "Pilih bakul yang ada lubang udara supaya tak berbau.", "cari": "bakul baju kotor"},
       {"id": "ampaian", "icon": "rak", "name": "Penyidai baju baby", "qty": "1", "why": "Sidai baju kecil dengan kemas.", "link": "", "tip": "Jemur di bawah matahari bila boleh. Baju lebih cepat kering dan bau lebih segar.", "cari": "penyidai baju bulat klip"},
       {"id": "jaring", "icon": "beg", "name": "Beg jaring basuh (laundry net)", "qty": "2", "why": "Stoking dan sarung tangan kecil tak hilang dalam mesin.", "link": "", "tip": "Satu jaring untuk stoking dan sarung tangan, satu lagi untuk bib dan sapu tangan.", "cari": "laundry net beg jaring basuh"},
       {"id": "stain", "icon": "sabun", "name": "Penanggal kotoran", "qty": "1", "why": "Kesan susu dan najis lebih mudah tanggal kalau dirawat awal.", "link": "", "tip": "Bilas kesan susu dengan air sejuk dulu. Air panas buat kesan susu lebih melekat.", "cari": "penanggal kotoran baju baby"}
     ]},
-    {"no": 45, "slug": "baby-room-organization", "title": "Baby Room Organization Set", "intro": "Barang untuk susun bilik dan barang baby dengan kemas.", "items": [
+    {"no": 45, "slug": "baby-room-organization", "title": "Baby Room Organization Set", "intro": "Barang untuk susun bilik dan barang baby dengan kemas.", "fasa": "tidur", "items": [
       {"id": "laci", "icon": "rak", "name": "Laci plastik bertingkat", "qty": "1", "why": "Asingkan baju, lampin dan barang mandi.", "link": "", "tip": "Label setiap laci ikut saiz baju: 0–3, 3–6 dan 6–12 bulan.", "cari": "laci plastik bertingkat"},
       {"id": "divider", "icon": "rak", "name": "Pembahagi laci", "qty": "1 set", "why": "Susun baju kecil ikut jenis.", "link": "", "tip": "Gulung baju, jangan lipat, supaya semua nampak bila laci dibuka.", "cari": "drawer divider organizer"},
       {"id": "troli", "icon": "rak", "name": "Troli beroda 3 tingkat", "qty": "1", "why": "Bawa barang tukar lampin dari bilik ke ruang tamu.", "link": "", "tip": "Tingkat atas untuk lampin dan tisu, tengah untuk baju ganti, bawah untuk stok.", "cari": "troli beroda 3 tingkat"},
       {"id": "bakul", "icon": "rak", "name": "Bakul simpanan kain", "qty": "2–3", "why": "Simpan mainan dan kain bedung.", "link": "", "tip": "Asingkan mainan ikut jenis supaya senang dikemas setiap malam.", "cari": "bakul simpanan kain"},
       {"id": "penyangkut", "icon": "baju", "name": "Penyangkut baju saiz baby", "qty": "1 pek", "why": "Sangkut baju kecil supaya tak berkedut.", "link": "", "tip": "Sangkut baju jalan dan baju raya baby supaya tak berkedut.", "cari": "penyangkut baju baby"}
     ]},
-    {"no": 46, "slug": "newborn-gift-hamper", "title": "Newborn Gift Hamper", "intro": "Idea hamper untuk melawat baby baru lahir.", "items": [
+    {"no": 46, "slug": "newborn-gift-hamper", "title": "Newborn Gift Hamper", "intro": "Idea hamper untuk melawat baby baru lahir.", "fasa": "hadiah", "items": [
       {"id": "baju", "icon": "hadiah", "name": "Gift set baju newborn", "qty": "1", "why": "Hadiah yang pasti terpakai.", "tip": "Pilih saiz 3–6 bulan supaya tak cepat tak muat.", "link": "", "cari": "gift set baju newborn"},
       {"id": "muslin", "icon": "bedung", "name": "Set bedung muslin", "qty": "1", "why": "Selalu digunakan dan sentiasa perlu lebih.", "link": "", "tip": "Pilih warna neutral atau corak lembut yang sesuai untuk baby lelaki dan perempuan.", "cari": "set bedung muslin gift"},
       {"id": "mandian", "icon": "sabun", "name": "Set mandian baby", "qty": "1", "why": "Sabun, syampu dan losyen dalam satu set.", "link": "", "tip": "Pilih jenama yang lembut dan tanpa pewangi kuat.", "cari": "set mandian baby gift"},
       {"id": "rattle", "icon": "hadiah", "name": "Mainan rattle lembut", "qty": "1", "why": "Selamat untuk digenggam baby.", "link": "", "tip": "Pastikan tiada bahagian kecil yang boleh tercabut.", "cari": "rattle baby lembut"},
       {"id": "kotak", "icon": "hadiah", "name": "Kotak / bakul hamper", "qty": "1", "why": "Susun semua hadiah dengan cantik.", "link": "", "tip": "Selitkan kad ucapan dan resit hadiah supaya mudah ditukar saiz.", "cari": "kotak hamper baby"}
     ]},
-    {"no": 47, "slug": "new-mom-gift", "title": "New Mom Gift Set", "intro": "Hadiah untuk ibu yang baru bersalin, bukan untuk baby sahaja.", "items": [
+    {"no": 47, "slug": "new-mom-gift", "title": "New Mom Gift Set", "intro": "Hadiah untuk ibu yang baru bersalin, bukan untuk baby sahaja.", "fasa": "hadiah", "items": [
       {"id": "botolair", "icon": "botol", "name": "Botol air besar dengan straw", "qty": "1", "why": "Ibu menyusu perlu minum air dengan kerap.", "link": "https://s.shopee.com.my/4fwqOkdyQW", "product": "Tupperware 1L Slim Eco Bottle Straw", "tip": "Tambah nota kecil \"Jangan lupa minum air\". Ibu baru selalu terlupa."},
       {"id": "spa", "icon": "hadiah", "name": "Set pelembap badan & krim tangan", "qty": "1", "why": "Masa rehat yang ringkas untuk diri sendiri.", "link": "", "tip": "Pilih produk tanpa pewangi kuat, sebab ibu selalu dukung baby rapat.", "cari": "set body lotion hand cream gift"},
       {"id": "bajutidur", "icon": "bajuibu", "name": "Baju tidur menyusu", "qty": "1", "why": "Selesa dan senang untuk menyusu waktu malam.", "link": "", "tip": "Pilih satu saiz lebih besar daripada saiz biasa ibu.", "cari": "baju tidur menyusu"},
       {"id": "bantal", "icon": "bulan", "name": "Bantal menyusu", "qty": "1", "why": "Kurangkan sakit belakang masa menyusu.", "link": "https://s.shopee.com.my/7KxbZmHaJ5", "product": "Bantal Menyusu 2in1 Nursing Pillow U", "tip": "Hadiah ni paling berguna kalau diberi sebelum bersalin."},
       {"id": "selipar", "icon": "kotak", "name": "Selipar rumah lembut", "qty": "1", "why": "Selesa untuk berjalan dalam rumah selepas bersalin.", "link": "", "tip": "Pilih tapak yang tak licin untuk keselamatan masa ke bilik air.", "cari": "selipar rumah lembut tak licin"}
     ]},
-    {"no": 48, "slug": "hospital-discharge", "title": "Mom & Baby Hospital Discharge Set", "intro": "Barang untuk hari ibu dan baby keluar wad.", "items": [
+    {"no": 48, "slug": "hospital-discharge", "title": "Mom & Baby Hospital Discharge Set", "intro": "Barang untuk hari ibu dan baby keluar wad.", "fasa": "bersalin", "items": [
       {"id": "bajubaby", "icon": "baju", "name": "Set baju baby balik dari hospital", "qty": "1", "why": "Baju pertama baby untuk balik ke rumah.", "link": "https://s.shopee.com.my/W7HSGQ8pd", "product": "Newborn Baby Clothes Set 5 Pcs 0-6M", "tip": "Pilih baju berbutang depan. Lebih senang dipakaikan pada newborn."},
       {"id": "bedung", "icon": "bedung", "name": "Bedung / selimut nipis", "qty": "1", "why": "Balut baby dari wad ke kereta.", "link": "", "tip": "Dalam car seat, tali patut dipasang terus pada badan baby. Bedung atau selimut diletak di atas tali, bukan di bawah.", "cari": "bedung baby cotton"},
       {"id": "carseat", "icon": "stroller", "name": "Car seat baby", "qty": "1", "why": "Perjalanan pertama baby dari hospital pun perlu car seat.", "link": "https://s.shopee.com.my/8Kq8nHpZXa", "product": "ECE Certified Baby Car Seat Newborn to 13kg", "tip": "Pasang car seat dalam kereta sekurang-kurangnya seminggu sebelum tarikh jangka bersalin."},
       {"id": "bajuibu", "icon": "bajuibu", "name": "Baju longgar untuk ibu", "qty": "1", "why": "Perut masih besar selepas bersalin, jadi pilih yang longgar.", "link": "", "tip": "Pilih jubah atau dress longgar yang senang disarung selepas bersalin.", "cari": "jubah longgar menyusu"},
       {"id": "topi", "icon": "sarung", "name": "Topi & sarung kaki baby", "qty": "1 set", "why": "Jaga baby hangat dalam kereta yang ada aircond.", "link": "https://s.shopee.com.my/2gBm2HSyhx", "product": "Newborn Hat Mitten Booties Set Cotton", "tip": "Tanggalkan topi bila dah sampai rumah kalau bilik tak sejuk."}
     ]},
-    {"no": 49, "slug": "newborn-essentials-bundle", "title": "Newborn Essentials Bundle", "intro": "Semua barang utama newborn dalam satu senarai untuk yang nak beli sekali gus.", "items": [
+    {"no": 49, "slug": "newborn-essentials-bundle", "title": "Newborn Essentials Bundle", "intro": "Semua barang utama newborn dalam satu senarai untuk yang nak beli sekali gus.", "fasa": "harian", "items": [
       {"id": "bundlebaju", "icon": "baju", "name": "Bundle baju newborn", "qty": "1 set", "why": "Baju, seluar, sarung tangan dan topi dalam satu set.", "link": "https://s.shopee.com.my/4qGGcEN7Qq", "product": "Newborn Baby Clothes Set 5 Pcs 0-6M", "tip": "Basuh semua baju dulu, kemudian simpan ikut saiz."},
       {"id": "lampin", "icon": "lampin", "name": "Lampin pakai buang saiz NB", "qty": "1 pek besar", "why": "Barang yang paling cepat habis.", "link": "", "tip": "Beli satu pek besar satu jenama dulu. Kalau sesuai, baru stok lebih.", "cari": "lampin newborn NB"},
       {"id": "tisu", "icon": "tisu", "name": "Tisu basah tanpa pewangi", "qty": "1 pek berbilang", "why": "Untuk setiap kali tukar lampin.", "link": "", "tip": "Pek berbilang lebih jimat, tapi semak tarikh luput sebelum stok banyak.", "cari": "tisu basah baby tanpa pewangi"},
@@ -611,28 +675,28 @@
       {"id": "mandian", "icon": "sabun", "name": "Set mandian baby", "qty": "1", "why": "Sabun, syampu dan losyen untuk kulit baby.", "link": "", "tip": "Mula dengan satu set kecil, sebab kulit setiap baby sesuai dengan produk yang berbeza.", "cari": "set mandian baby"},
       {"id": "playard", "icon": "bulan", "name": "Katil baby / playard", "qty": "1", "why": "Tempat tidur yang selamat untuk baby.", "link": "https://s.shopee.com.my/BUR3re26K", "product": "Mamakiddies UKS Portable Baby Travel Cot Playpen", "tip": "Guna tilam asal yang datang bersama playard. Jangan tambah tilam lembut di atasnya."}
     ]},
-    {"no": 50, "slug": "first-100-days", "title": "First 100 Days Baby Care Kit", "intro": "Barang untuk main, rangsangan dan rekod 100 hari pertama baby.", "warn": "Tummy time hanya bila baby berjaga dan diawasi.", "items": [
+    {"no": 50, "slug": "first-100-days", "title": "First 100 Days Baby Care Kit", "intro": "Barang untuk main, rangsangan dan rekod 100 hari pertama baby.", "warn": "Tummy time hanya bila baby berjaga dan diawasi.", "fasa": "harian", "items": [
       {"id": "kad", "icon": "kamera", "name": "Kad kontras hitam putih", "qty": "1 set", "why": "Newborn nampak corak kontras paling jelas pada minggu-minggu awal.", "link": "", "tip": "Tunjuk pada jarak 20–30 cm dari muka baby, dan tukar kad setiap beberapa hari.", "cari": "kad kontras hitam putih baby"},
       {"id": "playmat", "icon": "bedung", "name": "Play mat / play gym", "qty": "1", "why": "Untuk tummy time dan main sambil berbaring.", "link": "", "tip": "Pilih play gym yang mainannya boleh ditanggalkan dan dibasuh.", "cari": "play gym baby mat"},
       {"id": "bantaltummy", "icon": "bulan", "name": "Bantal tummy time", "qty": "1", "why": "Sokong dada baby masa tummy time.", "link": "", "tip": "Mula dengan 1–2 minit, beberapa kali sehari, dan tambah perlahan-lahan.", "cari": "bantal tummy time"},
       {"id": "jurnal", "icon": "kotak", "name": "Jurnal / buku rekod baby", "qty": "1", "why": "Catat susuan, tidur dan perkembangan untuk rujukan klinik.", "link": "", "tip": "Bawa ke setiap temujanji klinik. Doktor selalu tanya pasal susuan dan tidur.", "cari": "jurnal baby log book"},
       {"id": "rattle", "icon": "hadiah", "name": "Rattle & mainan genggam", "qty": "1 set", "why": "Latih baby menggenggam dan mengikut bunyi.", "link": "", "tip": "Goncang perlahan di kiri dan kanan untuk latih baby pusing kepala ikut bunyi.", "cari": "rattle baby genggam"}
     ]},
-    {"no": 51, "slug": "first-time-dad", "title": "First-Time Dad Starter Kit", "intro": "Barang untuk ayah yang nak bantu jaga baby dari hari pertama.", "items": [
+    {"no": 51, "slug": "first-time-dad", "title": "First-Time Dad Starter Kit", "intro": "Barang untuk ayah yang nak bantu jaga baby dari hari pertama.", "fasa": "kerja", "items": [
       {"id": "carrier", "icon": "kotak", "name": "Baby carrier boleh laras", "qty": "1", "why": "Ayah pun boleh dukung baby, dan ibu dapat berehat.", "link": "https://s.shopee.com.my/7ptsC9wrfr", "product": "CUDDLEME Ultimo Ergonomic Baby Carrier", "tip": "Laraskan semula tali setiap kali bertukar pemakai antara ibu dan ayah."},
       {"id": "beg", "icon": "beg", "name": "Beg lampin gaya neutral", "qty": "1", "why": "Ayah selesa bawa bila keluar dengan baby.", "link": "https://s.shopee.com.my/70KlCJlMyn", "product": "Princeton Milano 2.0 Diaper Bag", "tip": "Biar ayah susun beg sendiri, supaya dia tahu di mana semua barang."},
       {"id": "termos", "icon": "botol", "name": "Termos air panas", "qty": "1", "why": "Ayah boleh tolong bancuh susu waktu malam.", "link": "https://s.shopee.com.my/9V269tS6UZ", "product": "GIANXI 1L Thermos Hot Water Bottle", "tip": "Ayah boleh ambil giliran susuan malam dengan susu perah atau formula, supaya ibu dapat tidur."},
       {"id": "pengikir", "icon": "gunting", "name": "Pengikir kuku elektrik", "qty": "1", "why": "Tugas potong kuku baby yang lebih mudah untuk ayah.", "link": "https://s.shopee.com.my/5VVxPMhYks", "product": "Dr.isla 6in1 Electric Baby Nail Trimmer", "tip": "Buat masa baby tidur lena, di tempat yang terang."},
       {"id": "buku", "icon": "kotak", "name": "Buku panduan ayah baru", "qty": "1", "why": "Panduan ringkas untuk minggu-minggu pertama.", "link": "", "tip": "Pilih buku ringkas yang boleh dibaca sedikit setiap malam.", "cari": "buku panduan ayah baru"}
     ]},
-    {"no": 52, "slug": "mom-baby-self-care", "title": "Mom & Baby Self-Care Set", "intro": "Barang untuk ibu dan baby berehat dan rasa lebih tenang.", "items": [
+    {"no": 52, "slug": "mom-baby-self-care", "title": "Mom & Baby Self-Care Set", "intro": "Barang untuk ibu dan baby berehat dan rasa lebih tenang.", "fasa": "kerja", "items": [
       {"id": "minyakurut", "icon": "botol", "name": "Minyak urut baby", "qty": "1", "why": "Urut baby selepas mandi sebagai masa santai bersama.", "link": "", "tip": "Urut masa baby tenang dan berjaga, bukan sejurus selepas menyusu.", "cari": "minyak urut baby"},
       {"id": "pelembap", "icon": "krim", "name": "Pelembap badan untuk ibu", "qty": "1", "why": "Kulit selalu kering selepas bersalin dan menyusu.", "link": "", "tip": "Simpan di tepi tempat menyusu supaya ingat untuk sapu.", "cari": "body lotion kulit kering"},
       {"id": "sedondon", "icon": "baju", "name": "Baju tidur sedondon ibu & baby", "qty": "1 set", "why": "Comel untuk gambar dan selesa untuk tidur.", "link": "", "tip": "Pilih kain cotton untuk baby, dan saiz yang tak terlalu ketat.", "cari": "baju tidur sedondon ibu anak"},
       {"id": "eyemask", "icon": "bulan", "name": "Penutup mata tidur", "qty": "1", "why": "Ibu dapat tidur siang lebih lena masa baby tidur.", "link": "", "tip": "Tidur bila baby tidur. Walaupun 20 minit, ia sangat membantu.", "cari": "eye mask tidur"},
       {"id": "tumbler", "icon": "botol", "name": "Tumbler air", "qty": "1", "why": "Air sentiasa ada di sisi.", "link": "", "tip": "Isi penuh setiap pagi dan letak di tempat biasa menyusu.", "cari": "tumbler straw 1 liter"}
     ]},
-    {"no": 53, "slug": "pantang-breastfeeding-combo", "title": "Pantang & Breastfeeding Combo Set", "intro": "Gabungan barang berpantang dan menyusu dalam satu senarai.", "items": [
+    {"no": 53, "slug": "pantang-breastfeeding-combo", "title": "Pantang & Breastfeeding Combo Set", "intro": "Gabungan barang berpantang dan menyusu dalam satu senarai.", "fasa": "pantang", "items": [
       {"id": "bengkung", "icon": "kotak", "name": "Bengkung / barut", "qty": "1", "why": "Sokong perut sepanjang berpantang.", "tip": "Ibu yang bersalin secara pembedahan, tanya doktor dulu.", "link": "https://s.shopee.com.my/2qVCDZjgFL", "product": "Bengkung Bersalin Berzip & Bertali Tradisional"},
       {"id": "batik", "icon": "bedung", "name": "Kain batik", "qty": "3", "why": "Selesa dipakai bersama bengkung.", "link": "https://s.shopee.com.my/5fpNapGuOJ", "product": "Sarung Batik Siap Jahit", "tip": "Pilih kain batik lembut yang dah dibasuh beberapa kali."},
       {"id": "bantal", "icon": "bulan", "name": "Bantal menyusu", "qty": "1", "why": "Menyusu lebih selesa sambil duduk berpantang.", "link": "https://s.shopee.com.my/60SDzKa8PK", "product": "Bantal Menyusu 2in1 Nursing Pillow U", "tip": "Letak bantal kecil di belakang pinggang masa menyusu sambil bersandar."},
@@ -640,49 +704,49 @@
       {"id": "bajumenyusu", "icon": "bajuibu", "name": "Baju menyusu longgar", "qty": "2", "why": "Senang menyusu dan selesa dengan bengkung.", "link": "", "tip": "Pilih baju labuh yang selesa dipakai bersama bengkung dan kain batik.", "cari": "baju menyusu longgar"},
       {"id": "termos", "icon": "botol", "name": "Termos air panas", "qty": "1", "why": "Air suam untuk minum sepanjang hari.", "link": "https://s.shopee.com.my/8pmPMfi7DK", "product": "GIANXI 1L Thermos Hot Water Bottle", "tip": "Isi ikut amalan berpantang yang diikut, contohnya air suam atau air rebusan halia."}
     ]},
-    {"no": 54, "slug": "night-feeding", "title": "Newborn Night Feeding Kit", "intro": "Barang untuk sesi menyusu waktu malam yang lebih mudah.", "checked": "2026-10-09", "items": [
+    {"no": 54, "slug": "night-feeding", "title": "Newborn Night Feeding Kit", "intro": "Barang untuk sesi menyusu waktu malam yang lebih mudah.", "checked": "2026-10-09", "fasa": "makan", "items": [
       {"id": "lampu", "icon": "bulan", "name": "Lampu tidur malap boleh laras", "qty": "1", "why": "Nampak dengan jelas tanpa buat baby terjaga sepenuhnya.", "link": "https://s.shopee.com.my/W7HSYAHFK", "product": "Dimmable LED Night Lamp", "tip": "Letak lampu jauh dari mata baby, contohnya di meja tepi atau lantai."},
       {"id": "termos", "icon": "botol", "name": "Termos air panas", "qty": "1", "why": "Bancuh susu tanpa perlu ke dapur.", "link": "https://s.shopee.com.my/1VzodCIlOg", "product": "GIANXI 1L Thermos Hot Water Bottle", "tip": "Untuk susu formula, ikut arahan pada tin tentang suhu air dan sukatan."},
       {"id": "bantal", "icon": "bulan", "name": "Bantal menyusu", "qty": "1", "why": "Sokong baby supaya ibu tak cepat penat.", "link": "https://s.shopee.com.my/1gJEpMyfsm", "product": "Bantal Menyusu 2in1 Nursing Pillow U", "tip": "Letak di tepi katil sebelum tidur supaya senang dicapai dalam gelap."},
       {"id": "botolair", "icon": "botol", "name": "Botol air dengan straw untuk ibu", "qty": "1", "why": "Ibu cepat rasa dahaga masa menyusu.", "link": "https://s.shopee.com.my/6fhumQex9I", "product": "Tupperware 1L Slim Eco Bottle Straw", "tip": "Isi sebelum tidur dan letak di meja tepi katil."},
       {"id": "burpcloth", "icon": "bedung", "name": "Kain lap muntah (burp cloth)", "qty": "4", "why": "Sentiasa ada di tepi katil.", "link": "https://s.shopee.com.my/6q1KzUOQVQ", "product": "Woobbies 6 Layer Muslin Handkerchief", "tip": "Sediakan 2 di tepi katil: satu untuk bahu, satu untuk lap muka."}
     ]},
-    {"no": 55, "slug": "baby-on-the-go", "title": "Baby On-the-Go Essentials Set", "intro": "Barang ringkas untuk keluar rumah sekejap dengan baby.", "items": [
+    {"no": 55, "slug": "baby-on-the-go", "title": "Baby On-the-Go Essentials Set", "intro": "Barang ringkas untuk keluar rumah sekejap dengan baby.", "fasa": "keluar", "items": [
       {"id": "pouch", "icon": "beg", "name": "Pouch tukar lampin", "qty": "1", "why": "Muat lampin, tisu dan alas dalam satu pouch kecil.", "link": "", "tip": "Isi 2 lampin, tisu dan alas. Cukup untuk keluar 2–3 jam.", "cari": "diaper pouch kecil"},
       {"id": "mat", "icon": "bedung", "name": "Alas tukar lampin lipat", "qty": "1", "why": "Tukar lampin dengan bersih di mana-mana.", "link": "https://s.shopee.com.my/30ocQyzdyE", "product": "Portable Baby Diaper Changing Pad Foldable", "tip": "Lap dan keringkan alas selepas setiap kali guna."},
       {"id": "tisu", "icon": "tisu", "name": "Tisu basah saiz travel", "qty": "2–3 pek", "why": "Kecil dan senang dibawa.", "link": "https://s.shopee.com.my/9fLWNHuIJw", "product": "Mini Baby Wipes Alcohol Free 10pcs", "tip": "Simpan satu pek dalam kereta juga."},
       {"id": "kipas", "icon": "kotak", "name": "Kipas mini stroller", "qty": "1", "why": "Cuaca panas, dan baby cepat berpeluh dalam stroller.", "link": "https://s.shopee.com.my/3B82dgP3tx", "product": "24000mAh Rechargeable Clip Fan", "tip": "Klip pada pemegang stroller dan halakan angin ke badan baby, bukan ke muka."},
       {"id": "toystrap", "icon": "kotak", "name": "Tali pengikat mainan", "qty": "1", "why": "Mainan tak jatuh ke lantai.", "link": "", "tip": "Pilih tali yang pendek supaya tak boleh melilit leher baby.", "cari": "toy strap clip stroller"}
     ]},
-    {"no": 56, "slug": "postpartum-meal-prep", "title": "Postpartum Meal Prep Kit", "intro": "Barang dapur untuk sediakan makanan berpantang lebih awal.", "items": [
+    {"no": 56, "slug": "postpartum-meal-prep", "title": "Postpartum Meal Prep Kit", "intro": "Barang dapur untuk sediakan makanan berpantang lebih awal.", "fasa": "pantang", "items": [
       {"id": "slowcooker", "icon": "mangkuk", "name": "Slow cooker", "qty": "1", "why": "Masak sup berpantang tanpa perlu jaga dapur.", "link": "", "tip": "Masak sup dalam kuantiti besar, kemudian bahagikan dan bekukan.", "cari": "slow cooker 3L"},
       {"id": "bekas", "icon": "kotak", "name": "Bekas simpanan makanan untuk freezer", "qty": "1 set", "why": "Masak awal dan bekukan sebelum bersalin.", "link": "", "tip": "Bahagikan ikut satu hidangan supaya mudah dipanaskan.", "cari": "bekas makanan freezer set"},
       {"id": "pressure", "icon": "mangkuk", "name": "Periuk tekanan elektrik", "qty": "1", "why": "Masak lauk dan sup dengan cepat.", "link": "", "tip": "Sesuai untuk masak lauk seperti ayam masak halia dengan cepat.", "cari": "periuk tekanan elektrik"},
       {"id": "termos", "icon": "botol", "name": "Termos makanan", "qty": "1", "why": "Makanan kekal panas untuk ibu yang makan lewat.", "link": "https://s.shopee.com.my/8fSzCRwMTK", "product": "Tyeso 280ml Thermos Food Jar", "tip": "Isi makanan panas untuk ibu yang menyusu lama dan makan lewat."},
       {"id": "label", "icon": "kotak", "name": "Label & pen penanda", "qty": "1 set", "why": "Tulis tarikh pada setiap bekas makanan beku.", "link": "https://s.shopee.com.my/50ZgnucAaE", "product": "Quick-Dry Permanent Waterproof Marker", "tip": "Tulis nama lauk dan tarikh pada setiap bekas."}
     ]},
-    {"no": 57, "slug": "baby-shower-gift", "title": "Baby Shower Gift Set", "intro": "Idea hadiah untuk majlis baby shower.", "items": [
+    {"no": 57, "slug": "baby-shower-gift", "title": "Baby Shower Gift Set", "intro": "Idea hadiah untuk majlis baby shower.", "fasa": "hadiah", "items": [
       {"id": "kekl", "icon": "hadiah", "name": "Kek lampin (diaper cake)", "qty": "1", "why": "Cantik untuk majlis dan berguna selepas baby lahir.", "link": "", "tip": "Guna lampin saiz S atau M, bukan NB, sebab saiz NB cepat tak muat.", "cari": "diaper cake kek lampin"},
       {"id": "muslin", "icon": "bedung", "name": "Set bedung muslin", "qty": "1", "why": "Sentiasa diperlukan.", "link": "", "tip": "Bedung muslin tak pernah cukup. Set 3–4 helai ialah hadiah yang selamat.", "cari": "set bedung muslin gift"},
       {"id": "buku", "icon": "kotak", "name": "Buku kenangan baby", "qty": "1", "why": "Rekod detik pertama baby.", "link": "", "tip": "Pilih yang ada ruang untuk gambar dan tarikh penting.", "cari": "buku kenangan baby"},
       {"id": "bajuneutral", "icon": "baju", "name": "Set baju warna neutral", "qty": "1", "why": "Sesuai untuk baby lelaki atau perempuan.", "tip": "Pilih saiz 3–6 bulan.", "link": "", "cari": "baju baby warna neutral"},
       {"id": "kad", "icon": "hadiah", "name": "Kad kontras hitam putih", "qty": "1 set", "why": "Mainan pertama yang sesuai untuk newborn.", "link": "", "tip": "Hadiah murah yang sesuai digunakan dari hari pertama.", "cari": "kad kontras hitam putih baby"}
     ]},
-    {"no": 58, "slug": "newborn-photo-outfit", "title": "Newborn Photography Outfit Set", "intro": "Props untuk gambar newborn di rumah.", "warn": "Sentiasa awasi baby dan jangan biarkan baby tidur di atas props.", "items": [
+    {"no": 58, "slug": "newborn-photo-outfit", "title": "Newborn Photography Outfit Set", "intro": "Props untuk gambar newborn di rumah.", "warn": "Sentiasa awasi baby dan jangan biarkan baby tidur di atas props.", "fasa": "hadiah", "items": [
       {"id": "props", "icon": "kamera", "name": "Set props fotografi newborn", "qty": "1", "why": "Bonnet, wrap dan hiasan dalam satu set.", "link": "", "tip": "Ambil gambar dalam 2 minggu pertama, masa baby paling banyak tidur.", "cari": "newborn photography props set"},
       {"id": "wrap", "icon": "bedung", "name": "Kain wrap regang", "qty": "2", "why": "Balut baby dengan kemas untuk gambar.", "link": "", "tip": "Balut longgar di bahagian dada supaya baby boleh bernafas dengan selesa.", "cari": "newborn stretch wrap photography"},
       {"id": "backdrop", "icon": "bedung", "name": "Kain latar belakang (backdrop)", "qty": "1", "why": "Latar yang bersih untuk gambar di rumah.", "link": "", "tip": "Ambil gambar dekat tingkap dengan cahaya semula jadi, tanpa flash.", "cari": "backdrop kain fotografi"},
       {"id": "bonnet", "icon": "baju", "name": "Bonnet rajut", "qty": "1", "why": "Aksesori kepala yang comel dan lembut.", "link": "", "tip": "Pilih benang lembut yang tak gatal pada kulit kepala.", "cari": "bonnet rajut newborn"},
       {"id": "bakul", "icon": "rak", "name": "Bakul props", "qty": "1", "why": "Props klasik untuk gambar newborn.", "link": "", "tip": "Alas bakul dengan kain tebal, dan pastikan seorang dewasa sentiasa berada di sebelah baby.", "cari": "bakul props newborn"}
     ]},
-    {"no": 59, "slug": "baby-swimming", "title": "Baby Swimming Essentials Set", "intro": "Barang untuk bawa baby berenang, biasanya dari umur 6 bulan.", "warn": "Pelampung bukan pengganti pengawasan. Jangan guna pelampung leher untuk baby.", "items": [
+    {"no": 59, "slug": "baby-swimming", "title": "Baby Swimming Essentials Set", "intro": "Barang untuk bawa baby berenang, biasanya dari umur 6 bulan.", "warn": "Pelampung bukan pengganti pengawasan. Jangan guna pelampung leher untuk baby.", "fasa": "keluar", "items": [
       {"id": "lampin", "icon": "lampin", "name": "Lampin renang boleh guna semula", "qty": "2", "why": "Lampin biasa kembang dalam air. Lampin renang tidak.", "link": "", "tip": "Pakai lampin renang sahaja, tanpa lampin biasa di dalamnya.", "cari": "swim diaper lampin renang"},
       {"id": "bajurenang", "icon": "baju", "name": "Baju renang baby lengan panjang", "qty": "1–2", "why": "Lindungi kulit baby daripada matahari.", "link": "", "tip": "Pilih yang ada label UPF 50+ dan zip di depan.", "cari": "baju renang baby lengan panjang UPF"},
       {"id": "tuala", "icon": "bedung", "name": "Tuala bertudung", "qty": "1", "why": "Balut baby terus selepas keluar dari air.", "link": "https://s.shopee.com.my/5q8nnr6LUo", "product": "Bearmoss Hooded Muslin Baby Towel", "tip": "Bawa satu lagi tuala kecil untuk lap muka."},
       {"id": "swimseat", "icon": "air", "name": "Pelampung tempat duduk baby", "qty": "1", "why": "Baby duduk dengan selesa di dalam air.", "link": "", "tip": "Sentiasa pegang baby walaupun guna pelampung.", "cari": "pelampung baby seat"},
       {"id": "wetbag", "icon": "beg", "name": "Beg kalis air (wet bag)", "qty": "1", "why": "Simpan baju basah dengan kemas.", "link": "https://s.shopee.com.my/AAHmyBH3Nz", "product": "Diaper Wet Dry Bag Double Zipper 30x36", "tip": "Asingkan baju basah dan tuala supaya barang lain dalam beg tak lembap."}
     ]},
-    {"no": 60, "slug": "travel-with-baby", "title": "Travel with Baby Starter Kit", "intro": "Barang untuk perjalanan jauh atau naik kapal terbang dengan baby.", "items": [
+    {"no": 60, "slug": "travel-with-baby", "title": "Travel with Baby Starter Kit", "intro": "Barang untuk perjalanan jauh atau naik kapal terbang dengan baby.", "fasa": "keluar", "items": [
       {"id": "stroller", "icon": "stroller", "name": "Stroller cabin boleh lipat kecil", "qty": "1", "why": "Muat dalam kabin dan senang dibawa di lapangan terbang.", "link": "https://s.shopee.com.my/2LYveHkS2w", "product": "Chicco Trolleyme Lightweight Stroller", "tip": "Semak saiz stroller yang dibenarkan syarikat penerbangan sebelum terbang."},
       {"id": "carrier", "icon": "kotak", "name": "Baby carrier", "qty": "1", "why": "Senang lalu pemeriksaan keselamatan dan naik pesawat.", "link": "https://s.shopee.com.my/60SE0nUF4n", "product": "CUDDLEME Ultimo Ergonomic Baby Carrier", "tip": "Pakai masa naik dan turun pesawat supaya tangan bebas."},
       {"id": "earmuff", "icon": "kotak", "name": "Penutup telinga baby (earmuff)", "qty": "1", "why": "Kurangkan bunyi bising di lapangan terbang dan dalam pesawat.", "link": "", "tip": "Pilih saiz untuk baby, dan biasakan baby pakai di rumah dulu.", "cari": "earmuff baby"},
@@ -740,46 +804,109 @@
   function loadHave(slug) { try { return JSON.parse(localStorage.getItem("ftm-set:" + slug) || "{}") || {}; } catch (e) { return {}; } }
   function saveHave(slug, have) { try { localStorage.setItem("ftm-set:" + slug, JSON.stringify(have)); } catch (e) {} }
 
-  function renderIndex(query) {
-    const q = (query || "").trim().toLowerCase();
-    const match = s => !q || s.title.toLowerCase().includes(q) || String(s.no) === q;
-    const live = SETS.filter(s => isLive(s) && match(s));
-    const soon = SETS.filter(s => !isLive(s) && match(s));
-    const liveTotal = SETS.filter(isLive).length;
+  const PHASES = [
+    { id: "bersalin", label: "Bersalin", title: "Mengandung & bersalin", icon: "beg", desc: "Persiapan minggu akhir, beg hospital dan hari keluar wad." },
+    { id: "pantang", label: "Pantang", title: "Pantang & pulih", icon: "bajuibu", desc: "Keselesaan ibu sepanjang 44 hari pertama." },
+    { id: "menyusu", label: "Menyusu & pam", title: "Menyusu & pam susu", icon: "pam", desc: "Menyusu badan, pam, simpan dan bawa susu perah." },
+    { id: "makan", label: "Botol & makan", title: "Susu botol & makan", icon: "mangkuk", desc: "Botol, steril, susuan malam dan mula makanan pejal." },
+    { id: "harian", label: "Harian", title: "Penjagaan harian baby", icon: "mandi", desc: "Mandi, lampin, pakaian, kesihatan dan 100 hari pertama." },
+    { id: "tidur", label: "Tidur & bilik", title: "Tidur, bilik & keselamatan", icon: "bulan", desc: "Tidur yang selamat, susun bilik dan babyproofing." },
+    { id: "keluar", label: "Keluar & travel", title: "Keluar rumah & travel", icon: "stroller", desc: "Beg lampin, carrier, car seat dan bercuti." },
+    { id: "kerja", label: "Ibu bekerja", title: "Ibu bekerja & keluarga", icon: "kotak", desc: "Kembali bekerja, pengasuh, ayah dan masa rehat ibu." },
+    { id: "hadiah", label: "Hadiah", title: "Idea hadiah", icon: "hadiah", desc: "Hamper, hadiah ibu baru, baby shower dan props gambar." }
+  ];
+  const PHASE_IDS = PHASES.map(p => p.id);
+  const phaseOf = s => PHASE_IDS.includes(s.fasa) ? s.fasa : "lain";
+  const norm = t => String(t ?? "").toLowerCase();
+  const shortName = n => String(n ?? "").replace(/\s*\([^)]*\)/g, "").trim();
+  const svg = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] || ICONS.kotak}</svg>`;
+  const haveCount = s => { const have = loadHave(s.slug); return s.items.filter(it => have[it.id]).length; };
+
+  function setCard(s) {
+    const total = s.items.length;
+    const names = s.items.slice(0, 2).map(it => esc(shortName(it.name)));
+    const more = total - names.length;
+    const live = isLive(s);
+    const n = live ? haveCount(s) : 0;
+    const inner = `
+          <span class="sc-icon">${svg(s.items[0] && s.items[0].icon)}</span>
+          <span class="sc-body">
+            <span class="set-no">SET ${pad(s.no)}</span>
+            <strong>${esc(s.title)}</strong>
+            <span class="sc-items">${names.join(" · ")}${more > 0 ? ` · +${more}\u00a0lagi` : ""}</span>
+            <span class="sc-meta"><span>${total} barang</span>${live ? (n ? `<span class="mine">Dah ada ${n}/${total}</span>` : "") : `<span>Sedang dilengkapkan</span>`}</span>
+            ${n ? `<span class="sc-bar" aria-hidden="true"><i style="width:${(n / total * 100).toFixed(1)}%"></i></span>` : ""}
+          </span>`;
+    return live
+      ? `<a class="set-card${n === total ? " done" : ""}" href="#${esc(s.slug)}">${inner}</a>`
+      : `<div class="set-card soon">${inner}</div>`;
+  }
+
+  function renderIndex(phase) {
+    const state = { q: "", phase: PHASE_IDS.includes(phase) ? phase : "semua" };
+    const totalItems = SETS.reduce((a, s) => a + s.items.length, 0);
+    const count = id => SETS.filter(s => phaseOf(s) === id).length;
     app.innerHTML = `
       <header class="top">
         <div class="eyebrow">Panduan untuk FTM</div>
         <h1>Set Barang FTM</h1>
         <p class="lead">Tak pasti nak beli apa dulu? Pilih set ikut fasa awak. Setiap set senaraikan barang asas, sebab ia perlu, tips, dan cara cari di Shopee.</p>
+        <p class="stats"><span><b>${SETS.length}</b> set</span><span><b>${totalItems}</b> barang</span><span><b>${PHASES.length}</b> fasa</span></p>
       </header>
       <div class="search">
-        <label for="cari">Cari set</label>
-        <input id="cari" type="search" placeholder="Contoh: pam susu, berpantang, mandi" value="${esc(query || "")}" autocomplete="off">
+        <label for="cari">Cari set atau barang</label>
+        <input id="cari" type="search" placeholder="Contoh: pam susu, berpantang, mandi" autocomplete="off">
       </div>
-      <section class="group" aria-labelledby="h-live">
-        <div class="group-head"><h3 id="h-live">Set yang dah siap</h3><span>${liveTotal} daripada ${SETS.length}</span></div>
-        ${live.length ? `<div class="live-grid">${live.map(s => `
-          <a class="set-card" href="#${esc(s.slug)}">
-            <span class="set-no">SET ${pad(s.no)}</span>
-            <strong>${esc(s.title)}</strong>
-            <span class="meta"><span>${s.items.length} barang</span>${s.checked ? `<span>Disemak ${esc(tarikh(s.checked))}</span>` : ""}</span>
-          </a>`).join("")}</div>` : `<p class="empty">${q ? "Tiada set siap yang padan dengan carian ni." : "Set pertama sedang disiapkan."}</p>`}
-      </section>
-      ${liveTotal < SETS.length ? `<section class="group" aria-labelledby="h-soon">
-        <div class="group-head"><h3 id="h-soon">Akan datang</h3><span>${SETS.length - liveTotal} set</span></div>
-        ${soon.length ? `<ul class="soon-list">${soon.map(s => `
-          <li><span class="no">${pad(s.no)}</span><span>${esc(s.title)}</span><span class="tag">${hasItems(s) ? "Sedang dilengkapkan" : "Sedang disediakan"}</span></li>`).join("")}</ul>`
-          : `<p class="empty">Tiada set lain yang padan dengan carian ni.</p>`}
-      </section>` : ""}
+      <div class="chips" role="group" aria-label="Tapis ikut fasa">
+        <button type="button" class="chip" data-phase="semua">Semua <span class="c">${SETS.length}</span></button>
+        ${PHASES.map(p => `<button type="button" class="chip" data-phase="${p.id}">${esc(p.label)} <span class="c">${count(p.id)}</span></button>`).join("")}
+      </div>
+      <div class="results" id="results"></div>
       ${FOOTER}`;
-    const input = document.getElementById("cari");
-    input.addEventListener("input", () => {
-      const pos = input.selectionStart;
-      renderIndex(input.value);
-      const again = document.getElementById("cari");
-      again.focus();
-      try { again.setSelectionRange(pos, pos); } catch (e) {}
+
+    const results = document.getElementById("results");
+    const chips = app.querySelector(".chips");
+    const draw = () => {
+      chips.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.phase === state.phase)));
+      const q = norm(state.q).trim();
+      const match = s => !q || norm(s.title).includes(q) || String(s.no) === q || s.items.some(it => norm(it.name).includes(q));
+      const groups = [...PHASES, { id: "lain", title: "Lain-lain", icon: "kotak", desc: "" }]
+        .filter(p => state.phase === "semua" || p.id === state.phase)
+        .map(p => ({ p, sets: SETS.filter(s => phaseOf(s) === p.id && match(s)) }))
+        .filter(g => g.sets.length);
+      const start = SETS.find(s => s.no === 1);
+      const feature = !q && state.phase === "semua" && start && isLive(start) ? `
+        <a class="feature" href="#${esc(start.slug)}">
+          <span class="f-icon">${svg("baju")}</span>
+          <span class="f-body">
+            <span class="f-eyebrow">Baru nak mula? Mula di sini</span>
+            <strong>${esc(start.title)}</strong>
+            <span class="f-text">${start.items.length} barang asas yang baby perlukan dari hari pertama di rumah.</span>
+          </span>
+          <span class="f-cta">Buka set ${ARROW}</span>
+        </a>` : "";
+      results.innerHTML = feature + (groups.length
+        ? groups.map(({ p, sets }) => `
+        <section class="phase" id="fasa-${p.id}" aria-labelledby="h-${p.id}">
+          <div class="phase-head">
+            <span class="p-icon">${svg(p.icon)}</span>
+            <h3 id="h-${p.id}">${esc(p.title)}</h3>
+            <span class="count">${sets.length} set</span>
+            ${p.desc ? `<p>${esc(p.desc)}</p>` : ""}
+          </div>
+          <div class="set-grid">${sets.map(setCard).join("")}</div>
+        </section>`).join("")
+        : `<p class="empty">Tiada set yang padan dengan "${esc(state.q)}". Cuba perkataan lain, contohnya mandi atau pam.</p>`);
+    };
+    chips.addEventListener("click", e => {
+      const b = e.target.closest(".chip");
+      if (!b) return;
+      state.phase = b.dataset.phase;
+      try { history.replaceState(null, "", state.phase === "semua" ? "#semua" : "#fasa-" + state.phase); } catch (err) {}
+      draw();
     });
+    document.getElementById("cari").addEventListener("input", e => { state.q = e.target.value; draw(); });
+    draw();
   }
 
   function renderSoon(set) {
@@ -843,7 +970,7 @@
           </div>
         </article>`;
       }).join("")}</div>
-      <a class="back" href="#semua">${BACK} Lihat set lain</a>
+      <a class="back" href="#fasa-${esc(phaseOf(set))}">${BACK} Lihat set lain dalam fasa ini</a>
       ${FOOTER}`;
 
     const refresh = () => {
@@ -882,7 +1009,8 @@
   function route() {
     const slug = decodeURIComponent(location.hash.replace(/^#/, ""));
     const set = SETS.find(s => s.slug === slug);
-    if (!set) renderIndex("");
+    app.classList.toggle("wide", !set);
+    if (!set) renderIndex(slug.startsWith("fasa-") ? slug.slice(5) : "semua");
     else if (hasItems(set)) renderSet(set);
     else renderSoon(set);
     window.scrollTo(0, 0);
