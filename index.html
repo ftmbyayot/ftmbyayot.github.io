@@ -200,6 +200,15 @@
   .group-head span { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
   /* Page utama: statistik, cip fasa, kad "mula di sini", kumpulan fasa, kad set */
   .stats { margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
+  .follow {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    padding: 8px 14px; border-radius: 99px; text-decoration: none;
+    background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-size: 14px;
+  }
+  .follow b { color: var(--accent); }
+  .follow:hover { border-color: var(--accent); }
+  .follow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .follow svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .stats b { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--ink); font-variant-numeric: tabular-nums; margin-right: 2px; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: -10px; }
@@ -306,11 +315,14 @@
   DATA SET. Untuk kemas kini: ubah blok JSON ini sahaja, kemudian publish semula.
   - Set "siap" = ada barang DAN setiap barang ada "link" ATAU "cari". Set yang belum lengkap masih boleh dibuka dengan #slug untuk semakan.
   - "link" = link affiliate Shopee (sub_id1=set, sub_id2=nombor set, contoh set01). Mulai 9 Okt 2026 (akaun affiliate disekat), tiada link baru ditambah.
-  - "cari" = kata carian Shopee untuk barang tanpa link. Dipaparkan dengan butang "Salin". Kosong + tiada link = butang "Link Shopee belum dimasukkan".
+  - "tiktok" = link affiliate TikTok Shop (akaun @senangcari3). Kalau ada, butang "Lihat di TikTok Shop" menggantikan butang Shopee. "tiktok_date" = tarikh link dijana (YYYY-MM-DD); link tamat lebih kurang 100 hari, jana semula selepas itu.
+  - "cari" = kata carian untuk barang tanpa link. Dipaparkan dengan butang "Salin". Kosong + tiada link = butang "Link Shopee belum dimasukkan".
   - "product" = nama produk Shopee yang dipilih (untuk rujukan semakan harian, tak dipaparkan).
   - "icon" = baju | bedung | lampin | tisu | krim | sarung | termometer | botol | beg | pam | mandi | mangkuk | bulan | firstaid | hadiah | stroller | sabun | gunting | bajuibu | rak | kamera | air | gigi | kotak
   - "warn" / "note" pada set = amaran / nota di bawah tajuk set.
   - "checked" = tarikh link terakhir disemak (YYYY-MM-DD).
+  - Website ftmbyayot.github.io (repo github.com/ftmbyayot/ftmbyayot.github.io) = salinan page ini sebagai index.html penuh (doctype, head, meta og). Tambah snippet Cloudflare Web Analytics ini sebelum </body> dalam index.html sahaja (bukan dalam page ini):
+    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "578cd21c3a764562944e11f8bc77ff7e"}'></script>
   - "fasa" = kumpulan di page utama: bersalin | pantang | menyusu | makan | harian | tidur | keluar | kerja | hadiah. Set tanpa fasa masuk "Lain-lain".
 -->
 <script type="application/json" id="set-data">
@@ -791,13 +803,14 @@
   const FOOTER = `
     <footer>
       <p>Panduan ini untuk rujukan umum sahaja. Kalau ragu tentang kesihatan ibu atau baby, tanya doktor atau jururawat klinik.</p>
-      <p>Page ini mengandungi link affiliate Shopee. Kalau awak beli melalui link ini, saya mungkin dapat komisen kecil tanpa kos tambahan kepada awak.</p>
+      <p>Sesetengah link dalam page ini ialah link affiliate (TikTok Shop atau Shopee). Kalau awak beli melalui link ini, saya mungkin dapat komisen kecil tanpa kos tambahan kepada awak.</p>
+      <p>Ikut <a href="https://www.tiktok.com/@senangcari3" target="_blank" rel="noopener">@senangcari3 di TikTok</a> untuk review dan tips barang baby.</p>
     </footer>`;
 
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const tarikh = iso => { const d = new Date(iso + "T00:00:00"); return isNaN(d) ? "" : `${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}`; };
   const hasItems = s => Array.isArray(s.items) && s.items.length > 0;
-  const isLive = s => hasItems(s) && s.items.every(it => it.link || it.cari);
+  const isLive = s => hasItems(s) && s.items.every(it => it.tiktok || it.link || it.cari);
   const pad = n => String(n).padStart(2, "0");
   const app = document.getElementById("app");
 
@@ -850,8 +863,9 @@
       <header class="top">
         <div class="eyebrow">Panduan untuk FTM</div>
         <h1>Set Barang FTM</h1>
-        <p class="lead">Tak pasti nak beli apa dulu? Pilih set ikut fasa awak. Setiap set senaraikan barang asas, sebab ia perlu, tips, dan cara cari di Shopee.</p>
+        <p class="lead">Tak pasti nak beli apa dulu? Pilih set ikut fasa awak. Setiap set senaraikan barang asas, sebab ia perlu, tips, dan cara cari produknya.</p>
         <p class="stats"><span><b>${SETS.length}</b> set</span><span><b>${totalItems}</b> barang</span><span><b>${PHASES.length}</b> fasa</span></p>
+        <a class="follow" href="https://www.tiktok.com/@senangcari3" target="_blank" rel="noopener">Tips harian di TikTok: <b>@senangcari3</b> ${ARROW}</a>
       </header>
       <div class="search">
         <label for="cari">Cari set atau barang</label>
@@ -939,7 +953,7 @@
       </header>
       <ol class="steps" aria-label="Cara guna">
         <li><span class="n">1</span><span>Tanda barang yang awak dah ada.</span></li>
-        <li><span class="n">2</span><span>Tekan <b>Lihat di Shopee</b>, atau <b>Salin</b> kata carian dan cari dalam app Shopee.</span></li>
+        <li><span class="n">2</span><span>Tekan butang <b>Lihat</b> untuk buka produk, atau <b>Salin</b> kata carian dan cari sendiri dalam app.</span></li>
         <li><span class="n">3</span><span>Add to cart, kemudian checkout ikut bajet awak.</span></li>
       </ol>
       <div class="progress" aria-live="polite">
@@ -947,10 +961,12 @@
         <div class="bar"><i id="barFill"></i></div>
       </div>
       <div class="list" id="list">${set.items.map(it => {
-        const buy = it.link
+        const buy = it.tiktok
+          ? `<a class="buy" href="${esc(it.tiktok)}" target="_blank" rel="noopener sponsored">Lihat di TikTok Shop ${ARROW}</a>`
+          : it.link
           ? `<a class="buy" href="${esc(it.link)}" target="_blank" rel="noopener sponsored">Lihat di Shopee ${ARROW}</a>`
           : it.cari
-          ? `<span class="find"><span>Cari di Shopee:</span><span class="kw">${esc(it.cari)}</span><button type="button" class="copy" data-copy="${esc(it.cari)}" aria-label="Salin kata carian ${esc(it.cari)}">Salin</button></span>`
+          ? `<span class="find"><span>Kata carian:</span><span class="kw">${esc(it.cari)}</span><button type="button" class="copy" data-copy="${esc(it.cari)}" aria-label="Salin kata carian ${esc(it.cari)}">Salin</button></span>`
           : `<span class="buy pending" aria-disabled="true">Link Shopee belum dimasukkan</span>`;
         return `
         <article class="item${have[it.id] ? " have" : ""}">
